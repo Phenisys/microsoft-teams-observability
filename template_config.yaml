@@ -1,0 +1,33 @@
+microsoft_authentication: # Need Reports.Read.All, ServiceHealth.Read.All, CallRecords.Read.All permissions
+    microsoft_tenant_id: "your_tenant_id"
+    microsoft_client_id: "your_client_id"
+    microsoft_client_secret: "your_client_secret"
+    # microsoft_client_assertion_type: "urn:ietf:params:oauth:client-assertion-type:jwt-bearer"
+    # microsoft_client_certificate_path: "/path/to/pem"
+    # microsoft_client_certificate_passphrase: "my_passphrase. Delete field if not used"
+    microsoft_scope: "https://graph.microsoft.com/.default"
+    microsoft_grant_type: "client_credentials"
+
+output:
+    dynatrace:
+        dynatrace_tenant_id: "your_tenant_id" # Enter your tenant ID only (not the full URL), e.g., https://<tenant_id>.apps.dynatrace.com
+        dynatrace_api_token: "your_token" # Need log.ingest permission
+    splunk:
+        splunk_hec_url: "hec_url" # Ex: "https://mysplunk:8088/services/collector/event"
+        splunk_hec_token: "hec_token"
+        splunk_ssl_check: false
+
+collection_config:
+    logging_services: ["dynatrace","splunk"]
+    microsoft_max_call_duration_hours: 5
+    logfile_log_level: "INFO" #Be careful with debug mode, there's a lot of written logs and sensitive data!
+    # License path format example:
+    # - Windows : 'C:\Program Files\Phenisys\license.lic' or '%ProgramFiles%\Phenisys\license.lic'
+    # - Linux : './license.lic' or '/opt/phenisys/license.lic'
+    license_file: ./license.lic 
+    interval_collection_minutes: 1
+    enabled_features:
+        - ms_teams_calls_collection
+        - ms_teams_issues_collection
+        - ms_teams_pstn_calls_collection
+        - ms_teams_direct_routing_calls_collection
