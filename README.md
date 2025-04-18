@@ -36,7 +36,7 @@ Logs are sent to your Dynatrace tenant, processed by OpenPipeline, stored in a d
 
 ## Configuration Steps
 
-1. [Configure Azure Permissions](./wiki/Configure-Azure-Permissions)
+1. [Configure Azure Permissions](.blob/main/wiki/Configure-Azure-Permissions)
 2. [Configure Dynatrace environment](./wiki/dynatrace-setup)
 3. [Install the MS Teams Observability App](./wiki/app-installation)
 4. [Deploy the Agent](./wiki/agent-deployment)
