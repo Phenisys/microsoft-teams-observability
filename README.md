@@ -37,6 +37,6 @@ Logs are sent to your Dynatrace tenant, processed by OpenPipeline, stored in a d
 ## Configuration Steps
 
 1. [Configure Azure Permissions](https://github.com/Phenisys/microsoft-teams-observability/wiki/Configure-Azure-Permissions)
-2. [Configure your Dynatrace environment](https://github.com/Phenisys/microsoft-teams-observability/wiki/Configure-your-Dynatrace-environment)
-3. [Install the MS Teams Observability App](https://github.com/Phenisys/microsoft-teams-observability/wiki/Install-the-MS-Teams-Observability-App)
+2. [Install the MS Teams Observability App](https://github.com/Phenisys/microsoft-teams-observability/wiki/Install-the-MS-Teams-Observability-App)
+3. [Configure your Dynatrace environment](https://github.com/Phenisys/microsoft-teams-observability/wiki/Configure-your-Dynatrace-environment)
 4. [Deploy the Collector](https://github.com/Phenisys/microsoft-teams-observability/wiki/deploy-the-collector)
