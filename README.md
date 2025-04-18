@@ -10,7 +10,7 @@ The MS Teams Observability App for Dynatrace features a smart collector that re
 
 ## Overview
 
-The agent connects to Microsoft Graph to retrieve:
+The collector connects to Microsoft Graph to retrieve:
 
 - Call details (duration, participants, health)
 - Media stream metadata 
