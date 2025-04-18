@@ -2,7 +2,7 @@
 
 A Dynatrace app to collect and analyze Microsoft Teams call data.
 
----
+
 
 ## Table of Contents
 
@@ -11,7 +11,7 @@ A Dynatrace app to collect and analyze Microsoft Teams call data.
 [Configuration Steps](#configuration-steps)  
 
 
----
+
 
 ## Overview
 
@@ -28,7 +28,7 @@ Logs are sent to your Dynatrace tenant, processed by OpenPipeline, stored in a d
   <img src="./src/assets/images/architecture.png" width=900>
 </p>
 
----
+
 
 ## Prerequisites
 
@@ -46,4 +46,3 @@ Logs are sent to your Dynatrace tenant, processed by OpenPipeline, stored in a d
 3. [Install the MS Teams Observability App](./wiki/app-installation)
 4. [Deploy the Agent](./wiki/agent-deployment)
 
----
