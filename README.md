@@ -1,6 +1,6 @@
 # MS Teams Observability App
 
-The MS Teams Observability App for Dynatrace retrieves call records  and service‑health data from the Microsoft Graph API and sends them to your Dynatrace environment. It includes ready‑to‑use visualizations and metrics so you can monitor Teams call quality and service status across your organization.
+The MS Teams Observability App for Dynatrace features a smart collector that refines call records and service‑health data from Microsoft Graph before sending it to your Dynatrace environment. It ships with ready‑to‑use visualizations so you can monitor Teams call quality and service status across your organization.
 
 ## Table of Contents
 
