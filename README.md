@@ -38,7 +38,7 @@ MS Teams metadata are sent to your Splunk HEC and then visualized in your custom
   - *ServiceHealth.Read.All*
   - *Reports.Read.All*
 - VM Ubuntu 22.04 x64 or Windows x64
-- A upported Observability backend: 
+- A supported Observability backend: 
   -	Dynatrace (via Grail/OpenPipeline)
   -	Splunk (via HTTP Event Collector)
   - And more to come!
