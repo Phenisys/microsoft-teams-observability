@@ -1,0 +1,16 @@
+[Unit]
+Description=MS Teams Observability Agent
+After=network.target
+
+[Service]
+Type=simple
+# Replace with your actual user or use a dedicated service account
+User=root
+# Replace with your actual installation path
+WorkingDirectory=/opt/phenisys
+ExecStart=/opt/phenisys/Agent_MSTeams --config /opt/phenisys/config.yaml
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target 
