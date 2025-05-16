@@ -24,12 +24,16 @@ The collector connects to Microsoft Graph to retrieve:
 MS Teams metadata are sent to your Dynatrace tenant, processed by OpenPipeline, stored in a dedicated Grail bucket, and then visualized in the dedicated app or dashboards.
 
 <p align="center">
-  <img src="./src/assets/images/architecture.png" width=900>
+  <img src="./src/assets/images/Architecture-DT.png" width=900>
 </p>
 
 **Data flow for Splunk**
 
 MS Teams metadata are sent to your Splunk HEC and then visualized in your custom dashboards.
+
+<p align="center">
+  <img src="./src/assets/images/Architecture-Splunk.png" width=900>
+</p>
 
 ## Prerequisites
 
