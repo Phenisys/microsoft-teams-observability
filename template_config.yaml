@@ -20,14 +20,25 @@ output:
 collection_config:
     logging_services: ["dynatrace","splunk"]
     microsoft_max_call_duration_hours: 5
-    logfile_log_level: "INFO" #Be careful with debug mode, there's a lot of written logs and sensitive data!
+    logfile_log_level: "INFO" # Be careful with debug mode, there's a lot of written logs and sensitive data!
     # License path format example:
     # - Windows : 'C:\Program Files\Phenisys\license.lic' or '%ProgramFiles%\Phenisys\license.lic'
-    # - Linux : './license.lic' or '/opt/phenisys/license.lic'
-    license_file: ./license.lic 
+    # - Linux : '/opt/phenisys/license.lic'
+    license_file: /path/to/license.lic
     interval_collection_minutes: 1
-    enabled_features:
-        - ms_teams_calls_collection
-        - ms_teams_issues_collection
-        - ms_teams_pstn_calls_collection
-        - ms_teams_direct_routing_calls_collection
+    features:
+        ms_teams_calls_collection:
+            enabled: true
+        ms_teams_issues_collection:
+            enabled: true
+        ms_teams_pstn_calls_collection:
+            enabled: true
+        ms_teams_direct_routing_calls_collection:
+            enabled: true
+        ms_teams_site_definition:
+            enabled: true
+            # Site lookup definition from CSV file. Format must be comma separated value with these headers : subnet,site,country,lon,lat
+            # Ex : 
+            # subnet,site,country,lon,lat
+            # 10.1.0.0,Paris_HQ,FR,43.1003,5.8384
+            site_definition_file: /path/to/sites.csv 
