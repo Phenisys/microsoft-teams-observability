@@ -37,7 +37,7 @@ collection_config:
             enabled: true
         ms_teams_site_definition:
             enabled: true
-            # Site lookup definition from CSV file. Format must be comma separated value with these headers : subnet,site,country,lon,lat
+            # Site lookup definition from CSV file. Format must be comma separated value with these headers: subnet,site,country,lon,lat
             # Ex : 
             # subnet,site,country,lon,lat
             # 10.1.0.0,Paris_HQ,FR,43.1003,5.8384
