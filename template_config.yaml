@@ -4,7 +4,7 @@ microsoft_authentication: # Need Reports.Read.All, ServiceHealth.Read.All, CallR
     microsoft_client_secret: "your_client_secret"
     # microsoft_client_assertion_type: "urn:ietf:params:oauth:client-assertion-type:jwt-bearer"
     # microsoft_client_certificate_path: "/path/to/pem"
-    # microsoft_client_certificate_passphrase: "my_passphrase. Delete field if not used"
+    # microsoft_client_certificate_passphrase: "my_passphrase. Delete this field if no passphrase used"
     microsoft_scope: "https://graph.microsoft.com/.default"
     microsoft_grant_type: "client_credentials"
 
