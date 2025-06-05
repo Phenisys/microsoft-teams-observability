@@ -1,30 +1,30 @@
 microsoft_authentication: # Need Reports.Read.All, ServiceHealth.Read.All, CallRecords.Read.All permissions
-    microsoft_tenant_id: "your_tenant_id"
-    microsoft_client_id: "your_client_id"
-    microsoft_client_secret: "your_client_secret"
-    # microsoft_client_assertion_type: "urn:ietf:params:oauth:client-assertion-type:jwt-bearer"
-    # microsoft_client_certificate_path: "/path/to/pem"
-    # microsoft_client_certificate_passphrase: "my_passphrase. Delete this field if no passphrase used"
-    microsoft_scope: "https://graph.microsoft.com/.default"
-    microsoft_grant_type: "client_credentials"
+    microsoft_tenant_id: 'your_tenant_id'
+    microsoft_client_id: 'your_client_id'
+    microsoft_client_secret: 'your_client_secret'
+    # microsoft_client_assertion_type: 'urn:ietf:params:oauth:client-assertion-type:jwt-bearer'
+    # microsoft_client_certificate_path: '/path/to/pem'
+    # microsoft_client_certificate_passphrase: 'my_passphrase. Delete this field if no passphrase used'
+    microsoft_scope: 'https://graph.microsoft.com/.default'
+    microsoft_grant_type: 'client_credentials'
 
 output:
     dynatrace:
-        dynatrace_tenant_id: "your_tenant_id" # Enter your tenant ID only (not the full URL), e.g., https://<tenant_id>.apps.dynatrace.com
-        dynatrace_api_token: "your_token" # Need log.ingest permission
+        dynatrace_tenant_id: 'your_tenant_id' # Enter your tenant ID only (not the full URL), e.g., https://<tenant_id>.apps.dynatrace.com
+        dynatrace_api_token: 'your_token' # Need log.ingest permission
     splunk:
-        splunk_hec_url: "hec_url" # Ex: "https://mysplunk:8088/services/collector/event"
-        splunk_hec_token: "hec_token"
+        splunk_hec_url: 'hec_url' # Ex: 'https://mysplunk:8088/services/collector/event'
+        splunk_hec_token: 'hec_token'
         splunk_ssl_check: false
 
 collection_config:
-    logging_services: ["dynatrace","splunk"]
+    logging_services: ['dynatrace','splunk']
     microsoft_max_call_duration_hours: 5
-    logfile_log_level: "INFO" # Be careful with debug mode, there's a lot of written logs and sensitive data!
+    logfile_log_level: 'INFO' # Be careful with debug mode, there's a lot of written logs and sensitive data!
     # License path format example:
     # - Windows : 'C:\Program Files\Phenisys\license.lic' or '%ProgramFiles%\Phenisys\license.lic'
     # - Linux : '/opt/phenisys/license.lic'
-    license_file: /path/to/license.lic
+    license_file: '/path/to/license.lic'
     interval_collection_minutes: 1
     features:
         ms_teams_calls_collection:
@@ -41,4 +41,4 @@ collection_config:
             # Ex : 
             # subnet,site,country,lon,lat
             # 10.1.0.0,Paris_HQ,FR,43.1003,5.8384
-            site_definition_file: /path/to/sites.csv 
+            site_definition_file: '/path/to/sites.csv'
