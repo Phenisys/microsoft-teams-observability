@@ -7,7 +7,7 @@ It ships with ready‑to‑use visualizations so you can monitor Teams call qual
 
 Dynatrace Hub page for the [Dynatrace App](https://www.dynatrace.com/hub/detail/microsoft-teams-observability/).
 
-Splunkbase page for the [Dynatrace App](https://splunkbase.splunk.com/app/7850/) (Coming soon).
+Splunkbase page for the [Splunk App](https://splunkbase.splunk.com/app/7850/) (Coming soon).
 
 ## Table of Contents
 
