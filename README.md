@@ -9,7 +9,7 @@ Dynatrace Hub page for our [Dynatrace App](https://www.dynatrace.com/hub/detail/
 
 [Overview](#overview)  
 [Prerequisites](#prerequisites)  
-[Configuration Steps](#configuration-steps)  
+[Configuration Steps](#configuration-steps--documentation)  
 
 ## Overview
 
