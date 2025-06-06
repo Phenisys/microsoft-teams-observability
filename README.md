@@ -35,7 +35,7 @@ The collector connects to Microsoft Graph to retrieve:
 
 ![image](./src/assets/images/Dynatrace/App_%233_Choose_Call.png)
 
-### Call Details
+#### Call Details
 
 ![image](./src/assets/images/Dynatrace/App_%234_Tab_CallRecordOverview.png)
 
