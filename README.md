@@ -29,56 +29,56 @@ The collector connects to Microsoft Graph to retrieve:
 
 #### Main page
 
-![image](https://github.com/user-attachments/assets/1578f49f-4170-40af-a7db-f71653c48a33)
+![image](./src/assets/images/Dynatrace/App_#1_Tab_Home.png)
 
 #### Calls list
 
-![image](https://github.com/user-attachments/assets/3913a0d9-7fb7-479f-a956-ad566dc9be9a)
+![image](./src/assets/images/Dynatrace/App_#3_Choose_Call.png)
 
 ### Call Details
 
-![image](https://github.com/user-attachments/assets/b426c6f0-6ae6-49e8-9978-03729ff694ee)
+![image](./src/assets/images/Dynatrace/App_#4_Tab_CallRecordOverview.png)
 
 #### MS Teams Published Issues
 
-![image](https://github.com/user-attachments/assets/b4444ab5-ff7f-4068-949d-96774de44a41)
+![image](./src/assets/images/Dynatrace/App_#5_Tab_MicrosoftIssues.png)
 
 #### Teams performance by locations
 
-![image](https://github.com/user-attachments/assets/62ee70f5-3761-4797-83cf-a3846a9b67cf)
+![image](./src/assets/images/Dynatrace/App_#2_Site_Overview.png)
 
 #### Data flow for Dynatrace
 
 MS Teams metadata are sent to your Dynatrace tenant, processed by OpenPipeline, stored in a dedicated Grail bucket, and then visualized in the dedicated app or dashboards.
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/e019469a-8eb9-4ec5-98a3-bacea3bfabe7" width=60%>
+  <img src="./src/assets/images/Dynatrace/Architecture-DT.png" width=60%>
 </p>
 
 ### Splunk Visualizations
 
 #### Main page
 
-![image](https://github.com/user-attachments/assets/1d8a9e2a-fe5c-41f0-a443-44db31c1a6af)
+![image](./src/assets/images/Splunk/App_#1_Overview.png)
 
 #### Site Quality
 
-![image](https://github.com/user-attachments/assets/24068e6e-3e4c-4ab8-b3fe-f3b12057919d)
+![image](./src/assets/images/Splunk/App_#3_Site_Quality.png)
 
 #### Call Details
 
-![image](https://github.com/user-attachments/assets/fb5dcd61-da39-4266-b116-f56dc5eb4768)
+![image](./src/assets/images/Splunk/App_#2_Call_Details.png)
 
 #### Global Network Performance Assessment
 
-![image](https://github.com/user-attachments/assets/6e9273ea-582a-403f-a6ee-fa12af2a5686)
+![image](./src/assets/images/Splunk/App_#4_NPA.png)
 
 #### Data flow for Splunk
 
 MS Teams metadata are sent to your Splunk HEC and then visualized in your custom dashboards.
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/25a01b75-a6c2-4ea1-a0bb-070b7d3fa4c3" width=60%>
+  <img src="./src/assets/images/Splunk/Architecture-Splunk.png" width=60%>
 </p>
 
 ## Prerequisites
