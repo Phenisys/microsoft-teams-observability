@@ -29,23 +29,23 @@ The collector connects to Microsoft Graph to retrieve:
 
 #### Main page
 
-![image](./src/assets/images/Dynatrace/App_#1_Tab_Home.png)
+![image](./src/assets/images/Dynatrace/App_%231_Tab_Home.png)
 
 #### Calls list
 
-![image](./src/assets/images/Dynatrace/App_#3_Choose_Call.png)
+![image](./src/assets/images/Dynatrace/App_%233_Choose_Call.png)
 
 ### Call Details
 
-![image](./src/assets/images/Dynatrace/App_#4_Tab_CallRecordOverview.png)
+![image](./src/assets/images/Dynatrace/App_%234_Tab_CallRecordOverview.png)
 
 #### MS Teams Published Issues
 
-![image](./src/assets/images/Dynatrace/App_#5_Tab_MicrosoftIssues.png)
+![image](./src/assets/images/Dynatrace/App_%235_Tab_MicrosoftIssues.png)
 
 #### Teams performance by locations
 
-![image](./src/assets/images/Dynatrace/App_#2_Site_Overview.png)
+![image](./src/assets/images/Dynatrace/App_%232_Site_Overview.png)
 
 #### Data flow for Dynatrace
 
@@ -59,19 +59,19 @@ MS Teams metadata are sent to your Dynatrace tenant, processed by OpenPipeline, 
 
 #### Main page
 
-![image](./src/assets/images/Splunk/App_#1_Overview.png)
+![image](./src/assets/images/Splunk/App_%231_Overview.png)
 
 #### Site Quality
 
-![image](./src/assets/images/Splunk/App_#3_Site_Quality.png)
+![image](./src/assets/images/Splunk/App_%233_Site_Quality.png)
 
 #### Call Details
 
-![image](./src/assets/images/Splunk/App_#2_Call_Details.png)
+![image](./src/assets/images/Splunk/App_%232_Call_Details.png)
 
 #### Global Network Performance Assessment
 
-![image](./src/assets/images/Splunk/App_#4_NPA.png)
+![image](./src/assets/images/Splunk/App_%234_NPA.png)
 
 #### Data flow for Splunk
 
