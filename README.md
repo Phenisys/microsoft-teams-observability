@@ -23,6 +23,8 @@ The collector connects to Microsoft Graph to retrieve:
 - Call Records
 - PSTN Call Records
 - Direct Routing Records
+- Call Queue Records
+- Auto Attendant Records
 - MS Teams Service health and announcements
 
 ### Dynatrace Visualizations
