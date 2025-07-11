@@ -10,15 +10,16 @@ microsoft_authentication: # Need Reports.Read.All, ServiceHealth.Read.All, CallR
 
 output:
     dynatrace:
+        enabled: false # Set to true if you want to send data to Dynatrace
         dynatrace_tenant_id: 'your_tenant_id' # Enter your tenant ID only (not the full URL), e.g., https://<tenant_id>.apps.dynatrace.com
         dynatrace_api_token: 'your_token' # Need log.ingest permission
     splunk:
+        enabled: false # Set to true if you want to send data to Splunk
         splunk_hec_url: 'hec_url' # Ex: 'https://mysplunk:8088/services/collector/event'
         splunk_hec_token: 'hec_token'
         splunk_ssl_check: false
 
 collection_config:
-    logging_services: ['dynatrace','splunk']
     microsoft_max_call_duration_hours: 5
     logfile_log_level: 'INFO' # Be careful with debug mode, there's a lot of written logs and sensitive data!
     # License path format example:
