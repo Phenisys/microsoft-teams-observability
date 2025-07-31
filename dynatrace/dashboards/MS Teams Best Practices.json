@@ -1,0 +1,592 @@
+{
+    "version": 18,
+    "variables": [
+        {
+            "key": "CallerSubnet",
+            "visible": true,
+            "type": "query",
+            "version": 1,
+            "editable": true,
+            "input": "fetch logs\n| filter dt.system.bucket==\"ms_teams\"\n| filter matchesPhrase(caller.userPrincipalName, $domain)\n| filterOut callerNetwork.networkTransportProtocol == \"unknown\"\n| filter callerNetwork.networkTransportProtocol == \"tcp\"\n| dedup callerNetwork.subnet\n| fields callerNetwork.subnet\n| sort callerNetwork.subnet",
+            "multiple": true,
+            "defaultValue": [
+                "3420b2ac-f1cf-4b24-b62d-61ba1ba8ed05*"
+            ]
+        },
+        {
+            "key": "domain",
+            "visible": true,
+            "type": "text",
+            "version": 1,
+            "editable": true
+        }
+    ],
+    "tiles": {
+        "0": {
+            "title": "Location with TCP Traffic",
+            "type": "data",
+            "query": "fetch logs\n| filter dt.system.bucket==\"ms_teams\"\n| filter matchesPhrase(caller.userPrincipalName, $domain)\n| filterOut callerNetwork.networkTransportProtocol == \"unknown\"\n| filter matchesValue(callerNetwork.subnet, $CallerSubnet)\n| filterOut isnull(callerNetwork.subnet)\n| summarize `Disctints Calls` = countDistinct(call.id), `Streams TCP Volume` = countIf(callerNetwork.networkTransportProtocol == \"tcp\"), `Streams UDP Volume` = countIf(callerNetwork.networkTransportProtocol == \"udp\"), Total = count(),  PublicIP =  collectDistinct(callerNetwork.reflexiveipAddress), by: { callerSubnet = callerNetwork.subnet}\n| fieldsAdd `Percent of TCP` = ( `Streams TCP Volume` * 100 / Total )\n| sort `Percent of TCP` desc",
+            "visualization": "table",
+            "visualizationSettings": {
+                "thresholds": [
+                    {
+                        "id": 1,
+                        "field": "Percent of TCP",
+                        "title": "",
+                        "isEnabled": true,
+                        "rules": [
+                            {
+                                "id": 0,
+                                "color": {
+                                    "Default": "var(--dt-colors-charts-status-ideal-default, #2f6863)"
+                                },
+                                "comparator": "=",
+                                "label": "",
+                                "value": 0
+                            },
+                            {
+                                "id": 1,
+                                "color": {
+                                    "Default": "var(--dt-colors-charts-status-warning-default, #eca440)"
+                                },
+                                "comparator": "≥",
+                                "label": "",
+                                "value": 1
+                            },
+                            {
+                                "id": 2,
+                                "color": {
+                                    "Default": "var(--dt-colors-charts-status-critical-default, #c4233b)"
+                                },
+                                "comparator": "≥",
+                                "label": "",
+                                "value": 60
+                            }
+                        ]
+                    }
+                ],
+                "chartSettings": {
+                    "xAxisScaling": "analyzedTimeframe",
+                    "gapPolicy": "gap",
+                    "circleChartSettings": {
+                        "groupingThresholdType": "relative",
+                        "groupingThresholdValue": 0,
+                        "valueType": "relative"
+                    },
+                    "categoryOverrides": {},
+                    "curve": "linear",
+                    "pointsDisplay": "auto",
+                    "categoricalBarChartSettings": {
+                        "layout": "horizontal",
+                        "categoryAxisTickLayout": "horizontal",
+                        "scale": "absolute",
+                        "groupMode": "stacked",
+                        "colorPaletteMode": "multi-color",
+                        "categoryAxisLabel": "callerSubnet",
+                        "valueAxisLabel": "Streams TCP Volume,Streams UDP Volume,Total,Percent of TCP",
+                        "tooltipVariant": "single"
+                    },
+                    "colorPalette": "categorical",
+                    "valueRepresentation": "absolute",
+                    "truncationMode": "middle",
+                    "xAxisLabel": "timestamp",
+                    "xAxisIsLabelVisible": false,
+                    "hiddenLegendFields": [
+                        "averageJitterMs",
+                        "averageRoundTripTimeMs",
+                        "streamDurationS",
+                        "averagePacketLossRatePercent",
+                        "averageVideoFrameLossPercentage",
+                        "averageVideoFrameRate"
+                    ],
+                    "leftYAxisSettings": {}
+                },
+                "singleValue": {
+                    "showLabel": true,
+                    "label": "averageJitterMs",
+                    "prefixIcon": "",
+                    "autoscale": true,
+                    "alignment": "center",
+                    "colorThresholdTarget": "value",
+                    "recordField": "averageJitterMs",
+                    "trend": {
+                        "trendType": "auto",
+                        "isVisible": true
+                    },
+                    "sparklineSettings": {}
+                },
+                "table": {
+                    "rowDensity": "condensed",
+                    "enableSparklines": false,
+                    "hiddenColumns": [],
+                    "linewrapEnabled": false,
+                    "lineWrapIds": [],
+                    "monospacedFontEnabled": false,
+                    "monospacedFontColumns": [],
+                    "columnWidths": {},
+                    "columnTypeOverrides": [
+                        {
+                            "fields": [
+                                "content"
+                            ],
+                            "id": 1739788363438,
+                            "value": "log-content"
+                        }
+                    ],
+                    "colorThresholdTarget": "background",
+                    "enableThresholdInRow": false
+                },
+                "honeycomb": {
+                    "shape": "hexagon",
+                    "legend": {
+                        "hidden": false,
+                        "position": "auto",
+                        "ratio": "auto"
+                    },
+                    "dataMappings": {
+                        "value": "Streams TCP Volume"
+                    },
+                    "displayedFields": [
+                        "callerSubnet"
+                    ],
+                    "truncationMode": "middle",
+                    "colorMode": "color-palette",
+                    "colorPalette": "blue"
+                },
+                "histogram": {
+                    "legend": "auto",
+                    "yAxis": {
+                        "label": "Frequency",
+                        "scale": "linear"
+                    },
+                    "colorPalette": "categorical",
+                    "dataMappings": [
+                        {
+                            "valueAxis": "Streams TCP Volume",
+                            "rangeAxis": ""
+                        },
+                        {
+                            "valueAxis": "Streams UDP Volume",
+                            "rangeAxis": ""
+                        },
+                        {
+                            "valueAxis": "Total",
+                            "rangeAxis": ""
+                        },
+                        {
+                            "valueAxis": "Percent of TCP",
+                            "rangeAxis": ""
+                        }
+                    ],
+                    "variant": "single",
+                    "truncationMode": "middle",
+                    "displayedFields": [
+                        "callerSubnet"
+                    ]
+                },
+                "valueBoundaries": {
+                    "min": "auto",
+                    "max": "auto"
+                },
+                "label": {
+                    "showLabel": false,
+                    "label": "Streams TCP Volume"
+                },
+                "icon": {
+                    "showIcon": false,
+                    "icon": ""
+                },
+                "autoSelectVisualization": true,
+                "dataMapping": {
+                    "value": "Streams TCP Volume"
+                }
+            },
+            "querySettings": {
+                "maxResultRecords": 1000,
+                "defaultScanLimitGbytes": 500,
+                "maxResultMegaBytes": 1,
+                "defaultSamplingRatio": 10,
+                "enableSampling": false
+            },
+            "davis": {
+                "enabled": false,
+                "davisVisualization": {
+                    "isAvailable": true
+                }
+            }
+        },
+        "1": {
+            "title": "TCP Traffic trend",
+            "type": "data",
+            "query": "fetch logs\n| filter dt.system.bucket==\"ms_teams\"\n| filter matchesPhrase(caller.userPrincipalName, $domain)\n| filter callerNetwork.networkTransportProtocol == \"tcp\"\n| filter matchesValue(callerNetwork.subnet, $CallerSubnet)\n| makeTimeseries count(), by: { callerNetwork.networkTransportProtocol }, interval:1d",
+            "visualization": "barChart",
+            "visualizationSettings": {
+                "thresholds": [],
+                "chartSettings": {
+                    "xAxisScaling": "analyzedTimeframe",
+                    "gapPolicy": "gap",
+                    "circleChartSettings": {
+                        "groupingThresholdType": "relative",
+                        "groupingThresholdValue": 0,
+                        "valueType": "relative"
+                    },
+                    "categoryOverrides": {},
+                    "curve": "linear",
+                    "pointsDisplay": "auto",
+                    "categoricalBarChartSettings": {
+                        "layout": "horizontal",
+                        "categoryAxisTickLayout": "horizontal",
+                        "scale": "absolute",
+                        "groupMode": "stacked",
+                        "colorPaletteMode": "multi-color",
+                        "categoryAxisLabel": "callerNetwork.networkTransportProtocol",
+                        "valueAxisLabel": "interval",
+                        "tooltipVariant": "single"
+                    },
+                    "colorPalette": "categorical",
+                    "valueRepresentation": "absolute",
+                    "truncationMode": "middle",
+                    "xAxisLabel": "timeframe",
+                    "xAxisIsLabelVisible": false,
+                    "hiddenLegendFields": [
+                        "interval"
+                    ],
+                    "fieldMapping": {
+                        "timestamp": "timeframe",
+                        "leftAxisValues": [
+                            "count()"
+                        ]
+                    },
+                    "leftYAxisSettings": {}
+                },
+                "singleValue": {
+                    "showLabel": true,
+                    "label": "callerNetwork.networkTransportProtocol",
+                    "prefixIcon": "",
+                    "recordField": "callerNetwork.networkTransportProtocol",
+                    "autoscale": true,
+                    "alignment": "center",
+                    "trend": {
+                        "trendType": "auto",
+                        "isVisible": true
+                    },
+                    "colorThresholdTarget": "value",
+                    "sparklineSettings": {
+                        "record": "count()"
+                    }
+                },
+                "table": {
+                    "rowDensity": "condensed",
+                    "enableSparklines": false,
+                    "hiddenColumns": [],
+                    "linewrapEnabled": false,
+                    "lineWrapIds": [],
+                    "monospacedFontEnabled": false,
+                    "monospacedFontColumns": [],
+                    "columnWidths": {},
+                    "columnTypeOverrides": [
+                        {
+                            "fields": [
+                                "count()"
+                            ],
+                            "value": "sparkline",
+                            "id": 1740388545282
+                        }
+                    ]
+                },
+                "honeycomb": {
+                    "shape": "hexagon",
+                    "legend": {
+                        "hidden": false,
+                        "position": "auto",
+                        "ratio": "auto"
+                    },
+                    "dataMappings": {
+                        "value": "callerNetwork.networkTransportProtocol"
+                    },
+                    "displayedFields": [
+                        "callerNetwork.networkTransportProtocol"
+                    ],
+                    "truncationMode": "middle",
+                    "colorMode": "color-palette",
+                    "colorPalette": "categorical"
+                },
+                "histogram": {
+                    "legend": "auto",
+                    "yAxis": {
+                        "label": "Frequency",
+                        "scale": "linear"
+                    },
+                    "colorPalette": "categorical",
+                    "dataMappings": [
+                        {
+                            "valueAxis": "interval",
+                            "rangeAxis": ""
+                        }
+                    ],
+                    "variant": "single",
+                    "truncationMode": "middle",
+                    "displayedFields": [
+                        "callerNetwork.networkTransportProtocol"
+                    ]
+                },
+                "valueBoundaries": {
+                    "min": "auto",
+                    "max": "auto"
+                },
+                "label": {
+                    "showLabel": false,
+                    "label": "interval"
+                },
+                "icon": {
+                    "showIcon": false,
+                    "icon": ""
+                },
+                "autoSelectVisualization": false,
+                "dataMapping": {
+                    "value": "interval"
+                }
+            },
+            "querySettings": {
+                "maxResultRecords": 1000,
+                "defaultScanLimitGbytes": 500,
+                "maxResultMegaBytes": 1,
+                "defaultSamplingRatio": 10,
+                "enableSampling": false
+            },
+            "davis": {
+                "enabled": false,
+                "davisVisualization": {
+                    "isAvailable": true
+                }
+            }
+        },
+        "2": {
+            "type": "markdown",
+            "content": "## Enable the correct ports and protocols\nFor a seamless Microsoft Teams calling and meeting experience, network administrators should open UDP ports on both Network and Client Firewalls to Microsoft Teams Services as defined in the [Optimize Required category](https://learn.microsoft.com/en-US/microsoft-365/enterprise/urls-and-ip-address-ranges?view=o365-worldwide#microsoft-teams)"
+        },
+        "3": {
+            "title": "TCP Stream Details (Last 100)",
+            "type": "data",
+            "query": "fetch logs\n| filter dt.system.bucket==\"ms_teams\"\n| filter matchesPhrase(caller.userPrincipalName, $domain)\n| filterOut callerNetwork.networkTransportProtocol == \"unknown\"\n| filterOut isnull(callerNetwork.subnet)\n| filter matchesValue(callerNetwork.subnet, $CallerSubnet)\n| filter callerNetwork.networkTransportProtocol == \"tcp\"\n//| dedup call.id\n| fieldsAdd timeframe = timeframe(from:timestamp - 5m, to: timestamp + 5m)\n| fields timestamp, \nuser = caller.userPrincipalName, IP = callerNetwork.ipAddress, subnet = callerNetwork.subnet, IPPublic = callerNetwork.reflexiveipAddress, media = mediaLabel, streamDirection, type, `Drilldown to App` = concat(\"[\", call.id, \"](https://XXXXX.apps.dynatrace.com/ui/apps/my.teams.observability/callOverview?callId=\", call.id, \"&start=\", timeframe[start], \"&end=\", timeframe[end], \")\")\n| sort timestamp desc\n| limit 100",
+            "visualization": "table",
+            "visualizationSettings": {
+                "thresholds": [
+                    {
+                        "id": 1,
+                        "field": "Percent of TCP",
+                        "title": "",
+                        "isEnabled": true,
+                        "rules": [
+                            {
+                                "id": 0,
+                                "color": {
+                                    "Default": "var(--dt-colors-charts-status-ideal-default, #2f6863)"
+                                },
+                                "comparator": "=",
+                                "label": "",
+                                "value": 0
+                            },
+                            {
+                                "id": 1,
+                                "color": {
+                                    "Default": "var(--dt-colors-charts-status-warning-default, #eca440)"
+                                },
+                                "comparator": "≥",
+                                "label": "",
+                                "value": 1
+                            },
+                            {
+                                "id": 2,
+                                "color": {
+                                    "Default": "var(--dt-colors-charts-status-critical-default, #c4233b)"
+                                },
+                                "comparator": "≥",
+                                "label": "",
+                                "value": 60
+                            }
+                        ]
+                    }
+                ],
+                "chartSettings": {
+                    "xAxisScaling": "analyzedTimeframe",
+                    "gapPolicy": "gap",
+                    "circleChartSettings": {
+                        "groupingThresholdType": "relative",
+                        "groupingThresholdValue": 0,
+                        "valueType": "relative"
+                    },
+                    "categoryOverrides": {},
+                    "curve": "linear",
+                    "pointsDisplay": "auto",
+                    "categoricalBarChartSettings": {
+                        "layout": "horizontal",
+                        "categoryAxisTickLayout": "horizontal",
+                        "scale": "absolute",
+                        "groupMode": "stacked",
+                        "colorPaletteMode": "multi-color",
+                        "categoryAxisLabel": "callerSubnet",
+                        "valueAxisLabel": "Streams TCP Volume,Streams UDP Volume,Total,Percent of TCP",
+                        "tooltipVariant": "single"
+                    },
+                    "colorPalette": "categorical",
+                    "valueRepresentation": "absolute",
+                    "truncationMode": "middle",
+                    "xAxisLabel": "timeframe",
+                    "xAxisIsLabelVisible": false,
+                    "hiddenLegendFields": [
+                        "averageJitterMs",
+                        "averageRoundTripTimeMs",
+                        "streamDurationS",
+                        "averagePacketLossRatePercent",
+                        "averageVideoFrameLossPercentage",
+                        "averageVideoFrameRate"
+                    ],
+                    "leftYAxisSettings": {}
+                },
+                "singleValue": {
+                    "showLabel": true,
+                    "label": "averageJitterMs",
+                    "prefixIcon": "",
+                    "autoscale": true,
+                    "alignment": "center",
+                    "colorThresholdTarget": "value",
+                    "recordField": "averageJitterMs",
+                    "trend": {
+                        "trendType": "auto",
+                        "isVisible": true
+                    },
+                    "sparklineSettings": {}
+                },
+                "table": {
+                    "rowDensity": "condensed",
+                    "enableSparklines": false,
+                    "hiddenColumns": [],
+                    "linewrapEnabled": false,
+                    "lineWrapIds": [],
+                    "monospacedFontEnabled": false,
+                    "monospacedFontColumns": [],
+                    "columnWidths": {
+                        "[\"Drilldown to App\"]": 349
+                    },
+                    "columnTypeOverrides": [
+                        {
+                            "fields": [
+                                "Drilldown to App"
+                            ],
+                            "id": 1739788363438,
+                            "value": "markdown"
+                        }
+                    ],
+                    "colorThresholdTarget": "background",
+                    "enableThresholdInRow": false
+                },
+                "honeycomb": {
+                    "shape": "hexagon",
+                    "legend": {
+                        "hidden": false,
+                        "position": "auto",
+                        "ratio": "auto"
+                    },
+                    "dataMappings": {
+                        "value": "Streams TCP Volume"
+                    },
+                    "displayedFields": [
+                        "callerSubnet"
+                    ],
+                    "truncationMode": "middle",
+                    "colorMode": "color-palette",
+                    "colorPalette": "blue"
+                },
+                "histogram": {
+                    "legend": "auto",
+                    "yAxis": {
+                        "label": "Frequency",
+                        "scale": "linear"
+                    },
+                    "colorPalette": "categorical",
+                    "dataMappings": [
+                        {
+                            "valueAxis": "Streams TCP Volume",
+                            "rangeAxis": ""
+                        },
+                        {
+                            "valueAxis": "Streams UDP Volume",
+                            "rangeAxis": ""
+                        },
+                        {
+                            "valueAxis": "Total",
+                            "rangeAxis": ""
+                        },
+                        {
+                            "valueAxis": "Percent of TCP",
+                            "rangeAxis": ""
+                        }
+                    ],
+                    "variant": "single",
+                    "truncationMode": "middle",
+                    "displayedFields": [
+                        "callerSubnet"
+                    ]
+                },
+                "valueBoundaries": {
+                    "min": "auto",
+                    "max": "auto"
+                },
+                "label": {
+                    "showLabel": false,
+                    "label": "Streams TCP Volume"
+                },
+                "icon": {
+                    "showIcon": false,
+                    "icon": ""
+                },
+                "autoSelectVisualization": true,
+                "dataMapping": {
+                    "value": "Streams TCP Volume"
+                }
+            },
+            "querySettings": {
+                "maxResultRecords": 1000,
+                "defaultScanLimitGbytes": 500,
+                "maxResultMegaBytes": 1,
+                "defaultSamplingRatio": 10,
+                "enableSampling": false
+            },
+            "davis": {
+                "enabled": false,
+                "davisVisualization": {
+                    "isAvailable": true
+                }
+            }
+        }
+    },
+    "layouts": {
+        "0": {
+            "x": 0,
+            "y": 7,
+            "w": 22,
+            "h": 11
+        },
+        "1": {
+            "x": 0,
+            "y": 2,
+            "w": 22,
+            "h": 5
+        },
+        "2": {
+            "x": 0,
+            "y": 0,
+            "w": 23,
+            "h": 2
+        },
+        "3": {
+            "x": 0,
+            "y": 18,
+            "w": 22,
+            "h": 11
+        }
+    },
+    "importedWithCode": false,
+    "settings": {}
+}

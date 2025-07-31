@@ -1,0 +1,750 @@
+{
+    "version": 16,
+    "variables": [],
+    "tiles": {
+        "0": {
+            "type": "data",
+            "title": "% Caller Platform",
+            "query": "fetch logs\n| filter dt.system.bucket==\"ms_teams\"\n| filter log.source == \"MSGraphAPI_CallRecords_StreamDetails\" or log.source == \"MSTeams_CallRecords_StreamDetails\"\n| filterOut isNull(caller.platform) or caller.platform == \"unknown\"\n| fields timestamp, call.id, caller.displayName, caller.deviceName, caller.cpuName, caller.platform, caller.teamsVersion\n| summarize count() , by:{caller.platform}",
+            "davis": {
+                "enabled": false,
+                "davisVisualization": {
+                    "isAvailable": true
+                }
+            },
+            "visualization": "pieChart",
+            "visualizationSettings": {
+                "thresholds": [],
+                "chartSettings": {
+                    "xAxisScaling": "analyzedTimeframe",
+                    "gapPolicy": "connect",
+                    "circleChartSettings": {
+                        "groupingThresholdType": "relative",
+                        "groupingThresholdValue": 0,
+                        "valueType": "relative"
+                    },
+                    "categoryOverrides": {},
+                    "curve": "linear",
+                    "pointsDisplay": "auto",
+                    "truncationMode": "middle",
+                    "categoricalBarChartSettings": {
+                        "categoryAxis": [
+                            "caller.platform"
+                        ],
+                        "categoryAxisLabel": "caller.platform",
+                        "valueAxis": [
+                            "count()"
+                        ],
+                        "valueAxisLabel": "count()",
+                        "tooltipVariant": "single"
+                    },
+                    "hiddenLegendFields": [],
+                    "legend": {
+                        "position": "right",
+                        "hidden": false
+                    }
+                },
+                "singleValue": {
+                    "showLabel": true,
+                    "label": "caller.platform",
+                    "prefixIcon": "",
+                    "recordField": "caller.platform",
+                    "autoscale": true,
+                    "alignment": "center",
+                    "colorThresholdTarget": "value",
+                    "trend": {
+                        "trendType": "auto",
+                        "isVisible": false
+                    }
+                },
+                "table": {
+                    "rowDensity": "condensed",
+                    "enableSparklines": false,
+                    "hiddenColumns": [],
+                    "linewrapEnabled": false,
+                    "lineWrapIds": [],
+                    "monospacedFontEnabled": false,
+                    "monospacedFontColumns": [],
+                    "columnWidths": {},
+                    "columnTypeOverrides": []
+                },
+                "honeycomb": {
+                    "shape": "hexagon",
+                    "legend": {
+                        "hidden": false,
+                        "position": "auto"
+                    },
+                    "colorMode": "color-palette",
+                    "colorPalette": "blue",
+                    "dataMappings": {
+                        "value": "count()"
+                    },
+                    "displayedFields": [
+                        "caller.platform"
+                    ]
+                },
+                "histogram": {
+                    "dataMappings": [
+                        {
+                            "valueAxis": "count()",
+                            "rangeAxis": ""
+                        }
+                    ],
+                    "variant": "single",
+                    "displayedFields": [
+                        "caller.platform"
+                    ]
+                }
+            },
+            "querySettings": {
+                "maxResultRecords": 1000,
+                "defaultScanLimitGbytes": 500,
+                "maxResultMegaBytes": 1,
+                "defaultSamplingRatio": 10,
+                "enableSampling": false
+            }
+        },
+        "1": {
+            "type": "data",
+            "title": "Teams Web version",
+            "query": "fetch logs\n| filter dt.system.bucket==\"ms_teams\"\n| filter log.source == \"MSGraphAPI_CallRecords_StreamDetails\" or log.source == \"MSTeams_CallRecords_StreamDetails\"\n| filter caller.platform == \"web\"\n| fields timestamp, call.id, caller.displayName, caller.deviceName, caller.cpuName, caller.platform, caller.teamsVersion\n| maketimeseries count() , by:{caller.teamsVersion}",
+            "davis": {
+                "enabled": false,
+                "davisVisualization": {
+                    "isAvailable": true
+                }
+            },
+            "visualization": "barChart",
+            "visualizationSettings": {
+                "thresholds": [],
+                "chartSettings": {
+                    "xAxisScaling": "analyzedTimeframe",
+                    "gapPolicy": "connect",
+                    "circleChartSettings": {
+                        "groupingThresholdType": "relative",
+                        "groupingThresholdValue": 0,
+                        "valueType": "relative"
+                    },
+                    "categoryOverrides": {},
+                    "curve": "linear",
+                    "pointsDisplay": "auto",
+                    "truncationMode": "middle",
+                    "categoricalBarChartSettings": {
+                        "categoryAxisLabel": "caller.teamsVersion",
+                        "valueAxisLabel": "interval",
+                        "tooltipVariant": "single",
+                        "categoryAxis": [
+                            "caller.teamsVersion"
+                        ],
+                        "valueAxis": [
+                            "interval"
+                        ]
+                    },
+                    "hiddenLegendFields": [],
+                    "valueRepresentation": "absolute",
+                    "fieldMapping": {
+                        "timestamp": "timeframe",
+                        "leftAxisValues": [
+                            "count()"
+                        ]
+                    },
+                    "xAxisLabel": "timeframe",
+                    "xAxisIsLabelVisible": false,
+                    "leftYAxisSettings": {}
+                },
+                "singleValue": {
+                    "showLabel": true,
+                    "label": "caller.platform",
+                    "prefixIcon": "",
+                    "recordField": "caller.platform",
+                    "autoscale": true,
+                    "alignment": "center",
+                    "colorThresholdTarget": "value",
+                    "trend": {
+                        "trendType": "auto",
+                        "isVisible": true
+                    }
+                },
+                "table": {
+                    "rowDensity": "condensed",
+                    "enableSparklines": false,
+                    "hiddenColumns": [],
+                    "linewrapEnabled": false,
+                    "lineWrapIds": [],
+                    "monospacedFontEnabled": false,
+                    "monospacedFontColumns": [],
+                    "columnWidths": {},
+                    "columnTypeOverrides": [
+                        {
+                            "fields": [
+                                "count()"
+                            ],
+                            "value": "sparkline",
+                            "id": 1734338383093
+                        }
+                    ]
+                },
+                "honeycomb": {
+                    "shape": "hexagon",
+                    "legend": {
+                        "hidden": false,
+                        "position": "auto"
+                    },
+                    "colorMode": "color-palette",
+                    "colorPalette": "categorical",
+                    "dataMappings": {
+                        "value": "caller.teamsVersion"
+                    },
+                    "displayedFields": [
+                        "caller.teamsVersion"
+                    ]
+                },
+                "histogram": {
+                    "dataMappings": [
+                        {
+                            "valueAxis": "interval",
+                            "rangeAxis": ""
+                        }
+                    ],
+                    "variant": "single",
+                    "displayedFields": [
+                        "caller.teamsVersion"
+                    ]
+                }
+            },
+            "querySettings": {
+                "maxResultRecords": 1000,
+                "defaultScanLimitGbytes": 500,
+                "maxResultMegaBytes": 1,
+                "defaultSamplingRatio": 10,
+                "enableSampling": false
+            }
+        },
+        "2": {
+            "type": "data",
+            "title": "Teams IOS",
+            "query": "fetch logs\n| filter dt.system.bucket==\"ms_teams\"\n| filter log.source == \"MSGraphAPI_CallRecords_StreamDetails\" or log.source == \"MSTeams_CallRecords_StreamDetails\"\n| filter caller.platform == \"iOS\"\n| fields timestamp, call.id, caller.displayName, caller.deviceName, caller.cpuName, caller.platform, caller.teamsVersion\n| maketimeseries count() , by:{caller.teamsVersion}",
+            "davis": {
+                "enabled": false,
+                "davisVisualization": {
+                    "isAvailable": true
+                }
+            },
+            "visualization": "barChart",
+            "visualizationSettings": {
+                "thresholds": [],
+                "chartSettings": {
+                    "xAxisScaling": "analyzedTimeframe",
+                    "gapPolicy": "connect",
+                    "circleChartSettings": {
+                        "groupingThresholdType": "relative",
+                        "groupingThresholdValue": 0,
+                        "valueType": "relative"
+                    },
+                    "categoryOverrides": {},
+                    "curve": "linear",
+                    "pointsDisplay": "auto",
+                    "truncationMode": "middle",
+                    "categoricalBarChartSettings": {
+                        "categoryAxis": [
+                            "caller.teamsVersion"
+                        ],
+                        "categoryAxisLabel": "caller.teamsVersion",
+                        "valueAxis": [
+                            "interval"
+                        ],
+                        "valueAxisLabel": "interval",
+                        "tooltipVariant": "single"
+                    },
+                    "hiddenLegendFields": [],
+                    "fieldMapping": {
+                        "timestamp": "timeframe",
+                        "leftAxisValues": [
+                            "count()"
+                        ]
+                    },
+                    "valueRepresentation": "absolute",
+                    "legend": {
+                        "position": "right",
+                        "hidden": false
+                    },
+                    "xAxisLabel": "timeframe",
+                    "xAxisIsLabelVisible": false,
+                    "leftYAxisSettings": {}
+                },
+                "singleValue": {
+                    "showLabel": true,
+                    "label": "caller.platform",
+                    "prefixIcon": "",
+                    "recordField": "caller.platform",
+                    "autoscale": true,
+                    "alignment": "center",
+                    "colorThresholdTarget": "value",
+                    "trend": {
+                        "trendType": "auto",
+                        "isVisible": true
+                    }
+                },
+                "table": {
+                    "rowDensity": "condensed",
+                    "enableSparklines": false,
+                    "hiddenColumns": [],
+                    "linewrapEnabled": false,
+                    "lineWrapIds": [],
+                    "monospacedFontEnabled": false,
+                    "monospacedFontColumns": [],
+                    "columnWidths": {},
+                    "columnTypeOverrides": [
+                        {
+                            "fields": [
+                                "count()"
+                            ],
+                            "value": "sparkline",
+                            "id": 1734338393431
+                        }
+                    ]
+                },
+                "honeycomb": {
+                    "shape": "hexagon",
+                    "legend": {
+                        "hidden": false,
+                        "position": "auto"
+                    },
+                    "colorMode": "color-palette",
+                    "colorPalette": "categorical",
+                    "dataMappings": {
+                        "value": "caller.teamsVersion"
+                    },
+                    "displayedFields": [
+                        "caller.teamsVersion"
+                    ]
+                },
+                "histogram": {
+                    "dataMappings": [
+                        {
+                            "valueAxis": "interval",
+                            "rangeAxis": ""
+                        }
+                    ],
+                    "variant": "single",
+                    "displayedFields": [
+                        "caller.teamsVersion"
+                    ]
+                }
+            },
+            "querySettings": {
+                "maxResultRecords": 1000,
+                "defaultScanLimitGbytes": 500,
+                "maxResultMegaBytes": 1,
+                "defaultSamplingRatio": 10,
+                "enableSampling": false
+            }
+        },
+        "3": {
+            "type": "data",
+            "title": "Teams Android",
+            "query": "fetch logs\n| filter dt.system.bucket==\"ms_teams\"\n| filter log.source == \"MSGraphAPI_CallRecords_StreamDetails\" or log.source == \"MSTeams_CallRecords_StreamDetails\"\n| filter caller.platform == \"android\"\n| fields timestamp, call.id, caller.displayName, caller.deviceName, caller.cpuName, caller.platform, caller.teamsVersion\n| maketimeseries count() , by:{caller.teamsVersion}",
+            "davis": {
+                "enabled": false,
+                "davisVisualization": {
+                    "isAvailable": true
+                }
+            },
+            "visualization": "barChart",
+            "visualizationSettings": {
+                "thresholds": [],
+                "chartSettings": {
+                    "xAxisScaling": "analyzedTimeframe",
+                    "gapPolicy": "connect",
+                    "circleChartSettings": {
+                        "groupingThresholdType": "relative",
+                        "groupingThresholdValue": 0,
+                        "valueType": "relative"
+                    },
+                    "categoryOverrides": {},
+                    "curve": "linear",
+                    "pointsDisplay": "auto",
+                    "truncationMode": "middle",
+                    "categoricalBarChartSettings": {
+                        "categoryAxis": [
+                            "caller.teamsVersion"
+                        ],
+                        "categoryAxisLabel": "caller.teamsVersion",
+                        "valueAxis": [
+                            "interval"
+                        ],
+                        "valueAxisLabel": "interval",
+                        "tooltipVariant": "single"
+                    },
+                    "hiddenLegendFields": [],
+                    "fieldMapping": {
+                        "timestamp": "timeframe",
+                        "leftAxisValues": [
+                            "count()"
+                        ]
+                    },
+                    "valueRepresentation": "absolute",
+                    "xAxisLabel": "timeframe",
+                    "xAxisIsLabelVisible": false,
+                    "leftYAxisSettings": {}
+                },
+                "singleValue": {
+                    "showLabel": true,
+                    "label": "caller.platform",
+                    "prefixIcon": "",
+                    "recordField": "caller.platform",
+                    "autoscale": true,
+                    "alignment": "center",
+                    "colorThresholdTarget": "value",
+                    "trend": {
+                        "trendType": "auto",
+                        "isVisible": true
+                    }
+                },
+                "table": {
+                    "rowDensity": "condensed",
+                    "enableSparklines": false,
+                    "hiddenColumns": [],
+                    "linewrapEnabled": false,
+                    "lineWrapIds": [],
+                    "monospacedFontEnabled": false,
+                    "monospacedFontColumns": [],
+                    "columnWidths": {},
+                    "columnTypeOverrides": [
+                        {
+                            "fields": [
+                                "count()"
+                            ],
+                            "value": "sparkline",
+                            "id": 1734338397190
+                        }
+                    ]
+                },
+                "honeycomb": {
+                    "shape": "hexagon",
+                    "legend": {
+                        "hidden": false,
+                        "position": "auto"
+                    },
+                    "colorMode": "color-palette",
+                    "colorPalette": "categorical",
+                    "dataMappings": {
+                        "value": "caller.teamsVersion"
+                    },
+                    "displayedFields": [
+                        "caller.teamsVersion"
+                    ]
+                },
+                "histogram": {
+                    "dataMappings": [
+                        {
+                            "valueAxis": "interval",
+                            "rangeAxis": ""
+                        }
+                    ],
+                    "variant": "single",
+                    "displayedFields": [
+                        "caller.teamsVersion"
+                    ]
+                }
+            },
+            "querySettings": {
+                "maxResultRecords": 1000,
+                "defaultScanLimitGbytes": 500,
+                "maxResultMegaBytes": 1,
+                "defaultSamplingRatio": 10,
+                "enableSampling": false
+            }
+        },
+        "4": {
+            "type": "data",
+            "title": "Teams Windows version",
+            "query": "fetch logs\n| filter dt.system.bucket==\"ms_teams\"\n| filter log.source == \"MSGraphAPI_CallRecords_StreamDetails\" or log.source == \"MSTeams_CallRecords_StreamDetails\"\n| filter caller.platform == \"windows\"\n| fields timestamp, call.id, caller.displayName, caller.deviceName, caller.cpuName, caller.platform, caller.teamsVersion, callee.teamsVersion\n| maketimeseries count() , by:{caller.teamsVersion}",
+            "davis": {
+                "enabled": false,
+                "davisVisualization": {
+                    "isAvailable": true
+                }
+            },
+            "visualization": "barChart",
+            "visualizationSettings": {
+                "thresholds": [],
+                "chartSettings": {
+                    "xAxisScaling": "analyzedTimeframe",
+                    "gapPolicy": "connect",
+                    "circleChartSettings": {
+                        "groupingThresholdType": "relative",
+                        "groupingThresholdValue": 0,
+                        "valueType": "relative"
+                    },
+                    "categoryOverrides": {},
+                    "curve": "linear",
+                    "pointsDisplay": "auto",
+                    "truncationMode": "middle",
+                    "categoricalBarChartSettings": {
+                        "categoryAxis": [
+                            "caller.teamsVersion"
+                        ],
+                        "categoryAxisLabel": "caller.teamsVersion",
+                        "valueAxis": [
+                            "interval"
+                        ],
+                        "valueAxisLabel": "interval",
+                        "tooltipVariant": "single"
+                    },
+                    "hiddenLegendFields": [],
+                    "fieldMapping": {
+                        "timestamp": "timeframe",
+                        "leftAxisValues": [
+                            "count()"
+                        ]
+                    },
+                    "tooltip": {
+                        "seriesDisplayMode": "single-line"
+                    },
+                    "valueRepresentation": "absolute",
+                    "legend": {
+                        "position": "right",
+                        "hidden": false
+                    },
+                    "xAxisLabel": "timeframe",
+                    "xAxisIsLabelVisible": false,
+                    "leftYAxisSettings": {}
+                },
+                "singleValue": {
+                    "showLabel": true,
+                    "label": "caller.platform",
+                    "prefixIcon": "",
+                    "recordField": "caller.platform",
+                    "autoscale": true,
+                    "alignment": "center",
+                    "colorThresholdTarget": "value",
+                    "trend": {
+                        "trendType": "auto",
+                        "isVisible": true
+                    }
+                },
+                "table": {
+                    "rowDensity": "condensed",
+                    "enableSparklines": false,
+                    "hiddenColumns": [],
+                    "linewrapEnabled": false,
+                    "lineWrapIds": [],
+                    "monospacedFontEnabled": false,
+                    "monospacedFontColumns": [],
+                    "columnWidths": {},
+                    "columnTypeOverrides": [
+                        {
+                            "fields": [
+                                "count()"
+                            ],
+                            "value": "sparkline",
+                            "id": 1734338379935
+                        }
+                    ]
+                },
+                "honeycomb": {
+                    "shape": "hexagon",
+                    "legend": {
+                        "hidden": false,
+                        "position": "auto"
+                    },
+                    "colorMode": "color-palette",
+                    "colorPalette": "categorical",
+                    "dataMappings": {
+                        "value": "caller.teamsVersion"
+                    },
+                    "displayedFields": [
+                        "caller.teamsVersion"
+                    ]
+                },
+                "histogram": {
+                    "dataMappings": [
+                        {
+                            "valueAxis": "interval",
+                            "rangeAxis": ""
+                        }
+                    ],
+                    "variant": "single",
+                    "displayedFields": [
+                        "caller.teamsVersion"
+                    ]
+                }
+            },
+            "querySettings": {
+                "maxResultRecords": 1000,
+                "defaultScanLimitGbytes": 500,
+                "maxResultMegaBytes": 1,
+                "defaultSamplingRatio": 10,
+                "enableSampling": false
+            }
+        },
+        "5": {
+            "type": "markdown",
+            "title": "",
+            "content": "## Version History :\n* Windows : https://learn.microsoft.com/en-us/officeupdates/teams-app-versioning#windows-version-history\n* Web : https://learn.microsoft.com/en-us/officeupdates/teams-app-versioning#web-version-history\n* iOS : https://learn.microsoft.com/en-us/officeupdates/teams-app-versioning#mobile-android-version-history\n* Android : https://learn.microsoft.com/en-us/officeupdates/teams-app-versioning#mobile-android-version-history\n* macOS : https://learn.microsoft.com/en-us/officeupdates/teams-app-versioning#mac-version-history"
+        },
+        "6": {
+            "type": "data",
+            "title": "Teams macOS",
+            "query": "fetch logs\n| filter dt.system.bucket==\"ms_teams\"\n| filter log.source == \"MSGraphAPI_CallRecords_StreamDetails\" or log.source == \"MSTeams_CallRecords_StreamDetails\"\n| filter caller.platform == \"macOS\"\n| fields timestamp, call.id, caller.displayName, caller.deviceName, caller.cpuName, caller.platform, caller.teamsVersion\n| maketimeseries count() , by:{caller.teamsVersion}",
+            "davis": {
+                "enabled": false,
+                "davisVisualization": {
+                    "isAvailable": true
+                }
+            },
+            "visualization": "barChart",
+            "visualizationSettings": {
+                "thresholds": [],
+                "chartSettings": {
+                    "xAxisScaling": "analyzedTimeframe",
+                    "gapPolicy": "connect",
+                    "circleChartSettings": {
+                        "groupingThresholdType": "relative",
+                        "groupingThresholdValue": 0,
+                        "valueType": "relative"
+                    },
+                    "categoryOverrides": {},
+                    "curve": "linear",
+                    "pointsDisplay": "auto",
+                    "truncationMode": "middle",
+                    "categoricalBarChartSettings": {
+                        "categoryAxisLabel": "caller.teamsVersion",
+                        "valueAxisLabel": "interval",
+                        "tooltipVariant": "single",
+                        "categoryAxis": [
+                            "caller.teamsVersion"
+                        ],
+                        "valueAxis": [
+                            "interval"
+                        ]
+                    },
+                    "hiddenLegendFields": [],
+                    "valueRepresentation": "absolute",
+                    "fieldMapping": {
+                        "timestamp": "timeframe",
+                        "leftAxisValues": [
+                            "count()"
+                        ]
+                    },
+                    "xAxisLabel": "timeframe",
+                    "xAxisIsLabelVisible": false,
+                    "leftYAxisSettings": {}
+                },
+                "singleValue": {
+                    "showLabel": true,
+                    "label": "caller.platform",
+                    "prefixIcon": "",
+                    "recordField": "caller.platform",
+                    "autoscale": true,
+                    "alignment": "center",
+                    "colorThresholdTarget": "value",
+                    "trend": {
+                        "trendType": "auto",
+                        "isVisible": true
+                    }
+                },
+                "table": {
+                    "rowDensity": "condensed",
+                    "enableSparklines": false,
+                    "hiddenColumns": [],
+                    "linewrapEnabled": false,
+                    "lineWrapIds": [],
+                    "monospacedFontEnabled": false,
+                    "monospacedFontColumns": [],
+                    "columnWidths": {},
+                    "columnTypeOverrides": [
+                        {
+                            "fields": [
+                                "count()"
+                            ],
+                            "value": "sparkline",
+                            "id": 1734338402610
+                        }
+                    ]
+                },
+                "honeycomb": {
+                    "shape": "hexagon",
+                    "legend": {
+                        "hidden": false,
+                        "position": "auto"
+                    },
+                    "colorMode": "color-palette",
+                    "colorPalette": "categorical",
+                    "dataMappings": {
+                        "value": "caller.teamsVersion"
+                    },
+                    "displayedFields": [
+                        "caller.teamsVersion"
+                    ]
+                },
+                "histogram": {
+                    "dataMappings": [
+                        {
+                            "valueAxis": "interval",
+                            "rangeAxis": ""
+                        }
+                    ],
+                    "variant": "single",
+                    "displayedFields": [
+                        "caller.teamsVersion"
+                    ]
+                }
+            },
+            "querySettings": {
+                "maxResultRecords": 1000,
+                "defaultScanLimitGbytes": 500,
+                "maxResultMegaBytes": 1,
+                "defaultSamplingRatio": 10,
+                "enableSampling": false
+            }
+        }
+    },
+    "layouts": {
+        "0": {
+            "x": 0,
+            "y": 0,
+            "w": 6,
+            "h": 4
+        },
+        "1": {
+            "x": 11,
+            "y": 4,
+            "w": 11,
+            "h": 5
+        },
+        "2": {
+            "x": 0,
+            "y": 9,
+            "w": 11,
+            "h": 5
+        },
+        "3": {
+            "x": 11,
+            "y": 9,
+            "w": 11,
+            "h": 5
+        },
+        "4": {
+            "x": 0,
+            "y": 4,
+            "w": 11,
+            "h": 5
+        },
+        "5": {
+            "x": 6,
+            "y": 0,
+            "w": 16,
+            "h": 4
+        },
+        "6": {
+            "x": 0,
+            "y": 14,
+            "w": 11,
+            "h": 5
+        }
+    },
+    "importedWithCode": false,
+    "settings": {}
+}

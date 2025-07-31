@@ -1,0 +1,1364 @@
+{
+    "version": 18,
+    "variables": [
+        {
+            "key": "DirectRoutingCallType",
+            "visible": true,
+            "type": "query",
+            "version": 1,
+            "editable": true,
+            "input": "fetch logs\n| filter dt.system.bucket==\"ms_teams\"\n| filter matchesValue(log.source,\"MSTeams_CallRecords_DirectRouting\")\n| dedup callType\n| fields callType",
+            "multiple": true,
+            "defaultValue": [
+                "3420b2ac-f1cf-4b24-b62d-61ba1ba8ed05*"
+            ]
+        },
+        {
+            "key": "SBC",
+            "visible": true,
+            "type": "query",
+            "version": 1,
+            "editable": true,
+            "input": "fetch logs\n| filter dt.system.bucket==\"ms_teams\"\n| filter matchesValue(log.source,\"MSTeams_CallRecords_DirectRouting\")\n| dedup trunkFullyQualifiedDomainName\n| fields trunkFullyQualifiedDomainName\n| filterOut isNull(trunkFullyQualifiedDomainName)",
+            "multiple": true,
+            "defaultValue": [
+                "3420b2ac-f1cf-4b24-b62d-61ba1ba8ed05*"
+            ]
+        },
+        {
+            "key": "callerNumber",
+            "visible": true,
+            "type": "query",
+            "version": 1,
+            "editable": true,
+            "input": "fetch logs\n| filter dt.system.bucket==\"ms_teams\"\n| filter matchesValue(log.source,\"MSTeams_CallRecords_DirectRouting\")\n| dedup callerNumber\n| fields callerNumber\n| sort callerNumber asc",
+            "multiple": true,
+            "defaultValue": [
+                "3420b2ac-f1cf-4b24-b62d-61ba1ba8ed05*"
+            ]
+        },
+        {
+            "key": "calleeNumber",
+            "visible": true,
+            "type": "query",
+            "version": 1,
+            "editable": true,
+            "input": "fetch logs\n| filter dt.system.bucket==\"ms_teams\"\n| filter matchesValue(log.source,\"MSTeams_CallRecords_DirectRouting\")\n| dedup calleeNumber\n| fields calleeNumber\n| sort calleeNumber asc",
+            "multiple": true,
+            "defaultValue": [
+                "3420b2ac-f1cf-4b24-b62d-61ba1ba8ed05*"
+            ]
+        }
+    ],
+    "tiles": {
+        "0": {
+            "title": "Daily Active Users per Azure Region",
+            "type": "data",
+            "query": "fetch logs\n| filter dt.system.bucket==\"ms_teams\"\n| filter matchesValue(log.source,\"MSTeams_CallRecords_DirectRouting\")\n| filter in(callType, array($DirectRoutingCallType))\nAND in(trunkFullyQualifiedDomainName, array($SBC))\nAND in(callerNumber, array($callerNumber))\nAND in(calleeNumber, array($calleeNumber))\n| makeTimeseries `Daily Active Users` = countDistinct(userPrincipalName), by: { mediaPathLocation, signalingLocation }, interval:1d\n| filterOut isNull(mediaPathLocation) OR isNull(signalingLocation)",
+            "visualization": "barChart",
+            "visualizationSettings": {
+                "thresholds": [],
+                "chartSettings": {
+                    "xAxisScaling": "analyzedTimeframe",
+                    "gapPolicy": "gap",
+                    "circleChartSettings": {
+                        "groupingThresholdType": "relative",
+                        "groupingThresholdValue": 0,
+                        "valueType": "relative"
+                    },
+                    "categoryOverrides": {},
+                    "curve": "linear",
+                    "pointsDisplay": "auto",
+                    "categoricalBarChartSettings": {
+                        "layout": "horizontal",
+                        "categoryAxisTickLayout": "horizontal",
+                        "scale": "absolute",
+                        "groupMode": "stacked",
+                        "colorPaletteMode": "multi-color",
+                        "categoryAxisLabel": "mediaPathLocation,signalingLocation",
+                        "valueAxisLabel": "interval",
+                        "tooltipVariant": "single"
+                    },
+                    "colorPalette": "categorical",
+                    "valueRepresentation": "absolute",
+                    "truncationMode": "middle",
+                    "xAxisLabel": "timeframe",
+                    "xAxisIsLabelVisible": false,
+                    "hiddenLegendFields": [
+                        "interval"
+                    ],
+                    "fieldMapping": {
+                        "timestamp": "timeframe",
+                        "leftAxisValues": [
+                            "Daily Active Users"
+                        ]
+                    },
+                    "leftYAxisSettings": {}
+                },
+                "singleValue": {
+                    "showLabel": true,
+                    "label": "usageCountryCode",
+                    "prefixIcon": "",
+                    "recordField": "usageCountryCode",
+                    "autoscale": true,
+                    "sparklineSettings": {
+                        "record": "count()"
+                    },
+                    "alignment": "center",
+                    "trend": {
+                        "trendType": "auto",
+                        "isVisible": true
+                    },
+                    "colorThresholdTarget": "value"
+                },
+                "table": {
+                    "rowDensity": "condensed",
+                    "enableSparklines": false,
+                    "hiddenColumns": [],
+                    "linewrapEnabled": false,
+                    "lineWrapIds": [],
+                    "monospacedFontEnabled": false,
+                    "monospacedFontColumns": [],
+                    "columnWidths": {},
+                    "columnTypeOverrides": [
+                        {
+                            "fields": [
+                                "Daily Active Users"
+                            ],
+                            "value": "sparkline",
+                            "id": 1742397419064
+                        }
+                    ]
+                },
+                "honeycomb": {
+                    "shape": "hexagon",
+                    "legend": {
+                        "hidden": false,
+                        "position": "auto",
+                        "ratio": "auto"
+                    },
+                    "dataMappings": {
+                        "value": "usageCountryCode"
+                    },
+                    "displayedFields": [
+                        "usageCountryCode"
+                    ],
+                    "truncationMode": "middle",
+                    "colorMode": "color-palette",
+                    "colorPalette": "categorical"
+                },
+                "histogram": {
+                    "legend": "auto",
+                    "yAxis": {
+                        "label": "Frequency",
+                        "scale": "linear"
+                    },
+                    "colorPalette": "categorical",
+                    "dataMappings": [
+                        {
+                            "valueAxis": "interval",
+                            "rangeAxis": ""
+                        }
+                    ],
+                    "variant": "single",
+                    "truncationMode": "middle",
+                    "displayedFields": [
+                        "mediaPathLocation",
+                        "signalingLocation"
+                    ]
+                },
+                "valueBoundaries": {
+                    "min": "auto",
+                    "max": "auto"
+                },
+                "autoSelectVisualization": false,
+                "dataMapping": {
+                    "value": "interval"
+                },
+                "label": {
+                    "showLabel": true,
+                    "label": "interval"
+                }
+            },
+            "querySettings": {
+                "maxResultRecords": 1000,
+                "defaultScanLimitGbytes": 500,
+                "maxResultMegaBytes": 1,
+                "defaultSamplingRatio": 10,
+                "enableSampling": false
+            },
+            "davis": {
+                "enabled": false,
+                "davisVisualization": {
+                    "isAvailable": true
+                }
+            },
+            "timeframe": {
+                "tileTimeframeEnabled": true,
+                "tileTimeframe": {
+                    "from": "now()-7d",
+                    "to": "now()"
+                }
+            },
+            "segments": {
+                "tileSegments": [],
+                "tileSegmentsEnabled": false
+            }
+        },
+        "1": {
+            "title": "Details (Last 50 calls)",
+            "type": "data",
+            "query": "fetch logs\n| filter dt.system.bucket==\"ms_teams\"\n| filter in(callType, array($DirectRoutingCallType))\nAND in(trunkFullyQualifiedDomainName, array($SBC))\nAND in(callerNumber, array($callerNumber))\nAND in(calleeNumber, array($calleeNumber))\n| filter matchesValue(log.source,\"MSTeams_CallRecords_DirectRouting\")\n| fields timestamp, duration, userDisplayName, callType, callerNumber, calleeNumber, Success = successfulCall, Cause = finalSipCodePhrase\n| sort timestamp desc\n| limit 50",
+            "visualization": "table",
+            "visualizationSettings": {
+                "thresholds": [
+                    {
+                        "id": 1,
+                        "field": "",
+                        "title": "",
+                        "isEnabled": true,
+                        "rules": [
+                            {
+                                "id": 0,
+                                "color": {
+                                    "Default": "var(--dt-colors-charts-status-ideal-default, #2f6863)"
+                                },
+                                "comparator": "≥",
+                                "label": ""
+                            },
+                            {
+                                "id": 1,
+                                "color": {
+                                    "Default": "var(--dt-colors-charts-status-warning-default, #eca440)"
+                                },
+                                "comparator": "≥",
+                                "label": ""
+                            },
+                            {
+                                "id": 2,
+                                "color": {
+                                    "Default": "var(--dt-colors-charts-status-critical-default, #c4233b)"
+                                },
+                                "comparator": "≥",
+                                "label": ""
+                            }
+                        ]
+                    }
+                ],
+                "chartSettings": {
+                    "xAxisScaling": "analyzedTimeframe",
+                    "gapPolicy": "gap",
+                    "circleChartSettings": {
+                        "groupingThresholdType": "relative",
+                        "groupingThresholdValue": 0,
+                        "valueType": "relative"
+                    },
+                    "categoryOverrides": {},
+                    "curve": "linear",
+                    "pointsDisplay": "auto",
+                    "categoricalBarChartSettings": {
+                        "layout": "horizontal",
+                        "categoryAxisTickLayout": "horizontal",
+                        "scale": "absolute",
+                        "groupMode": "stacked",
+                        "colorPaletteMode": "multi-color",
+                        "categoryAxisLabel": "timestamp,userDisplayName,callType,callerNumber,calleeNumber,Success,Cause",
+                        "valueAxisLabel": "duration",
+                        "tooltipVariant": "single"
+                    },
+                    "colorPalette": "categorical",
+                    "valueRepresentation": "absolute",
+                    "truncationMode": "middle",
+                    "xAxisLabel": "timestamp",
+                    "xAxisIsLabelVisible": false,
+                    "hiddenLegendFields": [
+                        "interval",
+                        "duration"
+                    ],
+                    "fieldMapping": {
+                        "timestamp": "timestamp",
+                        "leftAxisValues": [
+                            "duration"
+                        ]
+                    },
+                    "leftYAxisSettings": {}
+                },
+                "singleValue": {
+                    "showLabel": true,
+                    "label": "usageCountryCode",
+                    "prefixIcon": "",
+                    "recordField": "usageCountryCode",
+                    "autoscale": true,
+                    "sparklineSettings": {
+                        "record": "count()"
+                    },
+                    "alignment": "center",
+                    "trend": {
+                        "trendType": "auto",
+                        "isVisible": true
+                    },
+                    "colorThresholdTarget": "value"
+                },
+                "table": {
+                    "rowDensity": "condensed",
+                    "enableSparklines": false,
+                    "hiddenColumns": [],
+                    "linewrapEnabled": false,
+                    "lineWrapIds": [],
+                    "monospacedFontEnabled": false,
+                    "monospacedFontColumns": [],
+                    "columnWidths": {},
+                    "columnTypeOverrides": [],
+                    "colorThresholdTarget": "background",
+                    "enableThresholdInRow": false
+                },
+                "honeycomb": {
+                    "shape": "hexagon",
+                    "legend": {
+                        "hidden": false,
+                        "position": "auto",
+                        "ratio": "auto"
+                    },
+                    "dataMappings": {
+                        "value": "duration"
+                    },
+                    "displayedFields": [
+                        "userDisplayName",
+                        "callType",
+                        "callerNumber",
+                        "calleeNumber",
+                        "operator"
+                    ],
+                    "truncationMode": "middle",
+                    "colorMode": "color-palette",
+                    "colorPalette": "blue"
+                },
+                "histogram": {
+                    "legend": "auto",
+                    "yAxis": {
+                        "label": "Frequency",
+                        "scale": "linear"
+                    },
+                    "colorPalette": "categorical",
+                    "dataMappings": [
+                        {
+                            "valueAxis": "duration",
+                            "rangeAxis": ""
+                        }
+                    ],
+                    "variant": "single",
+                    "truncationMode": "middle",
+                    "displayedFields": [
+                        "userDisplayName"
+                    ]
+                },
+                "valueBoundaries": {
+                    "min": "auto",
+                    "max": "auto"
+                },
+                "autoSelectVisualization": false,
+                "dataMapping": {
+                    "value": "interval"
+                },
+                "label": {
+                    "showLabel": true,
+                    "label": "interval"
+                }
+            },
+            "querySettings": {
+                "maxResultRecords": 1000,
+                "defaultScanLimitGbytes": 500,
+                "maxResultMegaBytes": 1,
+                "defaultSamplingRatio": 10,
+                "enableSampling": false
+            },
+            "davis": {
+                "enabled": false,
+                "davisVisualization": {
+                    "isAvailable": true
+                }
+            }
+        },
+        "2": {
+            "title": "Total Calls",
+            "type": "data",
+            "query": "fetch logs\n| filter dt.system.bucket==\"ms_teams\"\n| filter matchesValue(log.source,\"MSTeams_CallRecords_DirectRouting\")\n| filter in(callType, array($DirectRoutingCallType))\nAND in(trunkFullyQualifiedDomainName, array($SBC))\nAND in(callerNumber, array($callerNumber))\nAND in(calleeNumber, array($calleeNumber))\n| summarize countDistinct(call.id)",
+            "visualization": "singleValue",
+            "visualizationSettings": {
+                "thresholds": [],
+                "chartSettings": {
+                    "xAxisScaling": "analyzedTimeframe",
+                    "gapPolicy": "gap",
+                    "circleChartSettings": {
+                        "groupingThresholdType": "relative",
+                        "groupingThresholdValue": 0,
+                        "valueType": "relative"
+                    },
+                    "categoryOverrides": {},
+                    "curve": "linear",
+                    "pointsDisplay": "auto",
+                    "categoricalBarChartSettings": {
+                        "layout": "horizontal",
+                        "categoryAxisTickLayout": "horizontal",
+                        "scale": "absolute",
+                        "groupMode": "stacked",
+                        "colorPaletteMode": "multi-color",
+                        "categoryAxisLabel": "countDistinct(call.id)",
+                        "valueAxisLabel": "countDistinct(call.id)",
+                        "tooltipVariant": "single"
+                    },
+                    "colorPalette": "categorical",
+                    "valueRepresentation": "absolute",
+                    "truncationMode": "middle",
+                    "xAxisLabel": "timeframe",
+                    "xAxisIsLabelVisible": false,
+                    "hiddenLegendFields": [
+                        "interval"
+                    ],
+                    "leftYAxisSettings": {}
+                },
+                "singleValue": {
+                    "showLabel": false,
+                    "label": "usageCountryCode",
+                    "prefixIcon": "CallIcon",
+                    "recordField": "countDistinct(call.id)",
+                    "autoscale": true,
+                    "sparklineSettings": {
+                        "record": "count()"
+                    },
+                    "alignment": "center",
+                    "trend": {
+                        "trendType": "auto",
+                        "isVisible": true
+                    },
+                    "colorThresholdTarget": "background",
+                    "isIconVisible": true
+                },
+                "table": {
+                    "rowDensity": "condensed",
+                    "enableSparklines": false,
+                    "hiddenColumns": [],
+                    "linewrapEnabled": false,
+                    "lineWrapIds": [],
+                    "monospacedFontEnabled": false,
+                    "monospacedFontColumns": [],
+                    "columnWidths": {},
+                    "columnTypeOverrides": []
+                },
+                "honeycomb": {
+                    "shape": "hexagon",
+                    "legend": {
+                        "hidden": false,
+                        "position": "auto",
+                        "ratio": "auto"
+                    },
+                    "dataMappings": {},
+                    "displayedFields": [],
+                    "truncationMode": "middle",
+                    "colorMode": "color-palette",
+                    "colorPalette": "categorical"
+                },
+                "histogram": {
+                    "legend": "auto",
+                    "yAxis": {
+                        "label": "Frequency",
+                        "scale": "linear"
+                    },
+                    "colorPalette": "categorical",
+                    "dataMappings": [
+                        {
+                            "valueAxis": "countDistinct(call.id)",
+                            "rangeAxis": ""
+                        }
+                    ],
+                    "variant": "single",
+                    "truncationMode": "middle",
+                    "displayedFields": []
+                },
+                "valueBoundaries": {
+                    "min": "auto",
+                    "max": "auto"
+                },
+                "autoSelectVisualization": false,
+                "dataMapping": {
+                    "value": "interval"
+                },
+                "label": {
+                    "showLabel": true,
+                    "label": "interval"
+                }
+            },
+            "querySettings": {
+                "maxResultRecords": 1000,
+                "defaultScanLimitGbytes": 500,
+                "maxResultMegaBytes": 1,
+                "defaultSamplingRatio": 10,
+                "enableSampling": false
+            },
+            "davis": {
+                "enabled": false,
+                "davisVisualization": {
+                    "isAvailable": true
+                }
+            }
+        },
+        "3": {
+            "title": "Total Minutes",
+            "type": "data",
+            "query": "fetch logs\n| filter dt.system.bucket==\"ms_teams\"\n| filter matchesValue(log.source,\"MSTeams_CallRecords_DirectRouting\")\n| filter in(callType, array($DirectRoutingCallType))\nAND in(trunkFullyQualifiedDomainName, array($SBC))\nAND in(callerNumber, array($callerNumber))\nAND in(calleeNumber, array($calleeNumber))\n| summarize sum(duration)",
+            "visualization": "singleValue",
+            "visualizationSettings": {
+                "thresholds": [],
+                "chartSettings": {
+                    "xAxisScaling": "analyzedTimeframe",
+                    "gapPolicy": "gap",
+                    "circleChartSettings": {
+                        "groupingThresholdType": "relative",
+                        "groupingThresholdValue": 0,
+                        "valueType": "relative"
+                    },
+                    "categoryOverrides": {},
+                    "curve": "linear",
+                    "pointsDisplay": "auto",
+                    "categoricalBarChartSettings": {
+                        "layout": "horizontal",
+                        "categoryAxisTickLayout": "horizontal",
+                        "scale": "absolute",
+                        "groupMode": "stacked",
+                        "colorPaletteMode": "multi-color",
+                        "categoryAxisLabel": "sum(duration)",
+                        "valueAxisLabel": "sum(duration)",
+                        "tooltipVariant": "single"
+                    },
+                    "colorPalette": "categorical",
+                    "valueRepresentation": "absolute",
+                    "truncationMode": "middle",
+                    "xAxisLabel": "timeframe",
+                    "xAxisIsLabelVisible": false,
+                    "hiddenLegendFields": [
+                        "interval"
+                    ],
+                    "leftYAxisSettings": {}
+                },
+                "singleValue": {
+                    "showLabel": false,
+                    "label": "usageCountryCode",
+                    "prefixIcon": "StopwatchIcon",
+                    "recordField": "sum(duration)",
+                    "autoscale": true,
+                    "sparklineSettings": {
+                        "record": "count()"
+                    },
+                    "alignment": "center",
+                    "trend": {
+                        "trendType": "auto",
+                        "isVisible": true
+                    },
+                    "colorThresholdTarget": "background",
+                    "isIconVisible": true
+                },
+                "table": {
+                    "rowDensity": "condensed",
+                    "enableSparklines": false,
+                    "hiddenColumns": [],
+                    "linewrapEnabled": false,
+                    "lineWrapIds": [],
+                    "monospacedFontEnabled": false,
+                    "monospacedFontColumns": [],
+                    "columnWidths": {},
+                    "columnTypeOverrides": []
+                },
+                "honeycomb": {
+                    "shape": "hexagon",
+                    "legend": {
+                        "hidden": false,
+                        "position": "auto",
+                        "ratio": "auto"
+                    },
+                    "dataMappings": {},
+                    "displayedFields": [],
+                    "truncationMode": "middle",
+                    "colorMode": "color-palette",
+                    "colorPalette": "categorical"
+                },
+                "histogram": {
+                    "legend": "auto",
+                    "yAxis": {
+                        "label": "Frequency",
+                        "scale": "linear"
+                    },
+                    "colorPalette": "categorical",
+                    "dataMappings": [
+                        {
+                            "valueAxis": "sum(duration)",
+                            "rangeAxis": ""
+                        }
+                    ],
+                    "variant": "single",
+                    "truncationMode": "middle",
+                    "displayedFields": []
+                },
+                "valueBoundaries": {
+                    "min": "auto",
+                    "max": "auto"
+                },
+                "autoSelectVisualization": false,
+                "dataMapping": {
+                    "value": "interval"
+                },
+                "label": {
+                    "showLabel": true,
+                    "label": "interval"
+                },
+                "unitsOverrides": [
+                    {
+                        "identifier": "sum(duration)",
+                        "unitCategory": "time",
+                        "baseUnit": "second",
+                        "displayUnit": null,
+                        "decimals": 2,
+                        "suffix": "",
+                        "delimiter": false,
+                        "added": 1742395483518
+                    }
+                ]
+            },
+            "querySettings": {
+                "maxResultRecords": 1000,
+                "defaultScanLimitGbytes": 500,
+                "maxResultMegaBytes": 1,
+                "defaultSamplingRatio": 10,
+                "enableSampling": false
+            },
+            "davis": {
+                "enabled": false,
+                "davisVisualization": {
+                    "isAvailable": true
+                }
+            }
+        },
+        "4": {
+            "type": "markdown",
+            "content": "**Teams user call types**\n* dr_in - the user received an inbound PSTN call\n* dr_out - the user placed an outbound PSTN call\n* dr_out_user_conf - the user added a PSTN participant to the call\n* dr_out_user_forwarding - the user forwarded the call to a PSTN number\n* dr_out_user_transfer - the user transferred the call to a PSTN number\n* dr_emergency_out - the user made an emergency call\n* dr_unassigned_in - an inbound PSTN call via Direct Routing to an unassigned number\n* ByotIn - inbound PSTN call towards Direct Routing licensed user\n* ByotOut - Outbound call made from DIrect Routing licensed user\n* ByotOutUserConf - User escalating 1:1 call to meeting adding a PSTN participant and not having a CPC license\n* ByotOutUserForwarding - PSTN outbound call from forwarded user to tenant's Carrier\n* ByotOutUserTransfer - PSTN outbound call from transferred user to tenant's Carrier\n* ByotOutEmergency - PSTN outbound call from Direct Routing licensed user\n\n**Teams bots call types**\n* dr_in_bot - an inbound PSTN call to a Teams bot such as auto attendant or call queue\n* dr_out_bot - an outbound PSTN call from a Teams bot such as auto attendant or call queue"
+        },
+        "5": {
+            "title": "Count by CallType",
+            "type": "data",
+            "query": "fetch logs\n| filter dt.system.bucket==\"ms_teams\"\n| filter matchesValue(log.source,\"MSTeams_CallRecords_DirectRouting\")\n| filter in(callType, array($DirectRoutingCallType))\nAND in(trunkFullyQualifiedDomainName, array($SBC))\nAND in(callerNumber, array($callerNumber))\nAND in(calleeNumber, array($calleeNumber))\n| filterOut isNull(callType)\n| makeTimeseries count(), by:{ callType }, interval:1d\n",
+            "visualization": "barChart",
+            "visualizationSettings": {
+                "thresholds": [],
+                "chartSettings": {
+                    "xAxisScaling": "analyzedTimeframe",
+                    "gapPolicy": "gap",
+                    "circleChartSettings": {
+                        "groupingThresholdType": "relative",
+                        "groupingThresholdValue": 0,
+                        "valueType": "relative"
+                    },
+                    "categoryOverrides": {},
+                    "curve": "linear",
+                    "pointsDisplay": "auto",
+                    "categoricalBarChartSettings": {
+                        "layout": "horizontal",
+                        "categoryAxisTickLayout": "horizontal",
+                        "scale": "absolute",
+                        "groupMode": "stacked",
+                        "colorPaletteMode": "multi-color",
+                        "categoryAxisLabel": "callType",
+                        "valueAxisLabel": "interval",
+                        "tooltipVariant": "single"
+                    },
+                    "colorPalette": "categorical",
+                    "valueRepresentation": "absolute",
+                    "truncationMode": "end",
+                    "xAxisLabel": "timeframe",
+                    "xAxisIsLabelVisible": false,
+                    "hiddenLegendFields": [
+                        "interval"
+                    ],
+                    "fieldMapping": {
+                        "timestamp": "timeframe",
+                        "leftAxisValues": [
+                            "count()"
+                        ]
+                    },
+                    "leftYAxisSettings": {}
+                },
+                "singleValue": {
+                    "showLabel": true,
+                    "label": "callType",
+                    "prefixIcon": "",
+                    "recordField": "callType",
+                    "autoscale": true,
+                    "sparklineSettings": {
+                        "record": "count()"
+                    },
+                    "alignment": "center",
+                    "trend": {
+                        "trendType": "auto",
+                        "isVisible": true
+                    },
+                    "colorThresholdTarget": "value"
+                },
+                "table": {
+                    "rowDensity": "condensed",
+                    "enableSparklines": false,
+                    "hiddenColumns": [],
+                    "linewrapEnabled": false,
+                    "lineWrapIds": [],
+                    "monospacedFontEnabled": false,
+                    "monospacedFontColumns": [],
+                    "columnWidths": {},
+                    "columnTypeOverrides": [
+                        {
+                            "fields": [
+                                "count()"
+                            ],
+                            "value": "sparkline",
+                            "id": 1742398983280
+                        }
+                    ]
+                },
+                "honeycomb": {
+                    "shape": "hexagon",
+                    "legend": {
+                        "hidden": false,
+                        "position": "auto",
+                        "ratio": "auto"
+                    },
+                    "dataMappings": {
+                        "value": "callType"
+                    },
+                    "displayedFields": [
+                        "callType"
+                    ],
+                    "truncationMode": "middle",
+                    "colorMode": "color-palette",
+                    "colorPalette": "categorical"
+                },
+                "histogram": {
+                    "legend": "auto",
+                    "yAxis": {
+                        "label": "Frequency",
+                        "scale": "linear"
+                    },
+                    "colorPalette": "categorical",
+                    "dataMappings": [
+                        {
+                            "valueAxis": "interval",
+                            "rangeAxis": ""
+                        }
+                    ],
+                    "variant": "single",
+                    "truncationMode": "middle",
+                    "displayedFields": [
+                        "callType"
+                    ]
+                },
+                "valueBoundaries": {
+                    "min": "auto",
+                    "max": "auto"
+                },
+                "autoSelectVisualization": false,
+                "dataMapping": {
+                    "value": "interval"
+                },
+                "label": {
+                    "showLabel": true,
+                    "label": "interval"
+                },
+                "legend": {
+                    "showLegend": false,
+                    "position": "auto",
+                    "ratio": 33
+                }
+            },
+            "querySettings": {
+                "maxResultRecords": 1000,
+                "defaultScanLimitGbytes": 500,
+                "maxResultMegaBytes": 1,
+                "defaultSamplingRatio": 10,
+                "enableSampling": false
+            },
+            "davis": {
+                "enabled": false,
+                "davisVisualization": {
+                    "isAvailable": true
+                }
+            },
+            "timeframe": {
+                "tileTimeframeEnabled": true,
+                "tileTimeframe": {
+                    "from": "now()-7d",
+                    "to": "now()"
+                }
+            },
+            "segments": {
+                "tileSegments": [],
+                "tileSegmentsEnabled": false
+            }
+        },
+        "6": {
+            "title": "Count by SIP Code",
+            "type": "data",
+            "query": "fetch logs\n| filter dt.system.bucket==\"ms_teams\"\n| filter matchesValue(log.source,\"MSTeams_CallRecords_DirectRouting\")\n| filter in(callType, array($DirectRoutingCallType))\nAND in(trunkFullyQualifiedDomainName, array($SBC))\nAND in(callerNumber, array($callerNumber))\nAND in(calleeNumber, array($calleeNumber))\n| makeTimeseries count(), by: {finalSipCodePhrase }, interval:1d",
+            "visualization": "barChart",
+            "visualizationSettings": {
+                "thresholds": [],
+                "chartSettings": {
+                    "xAxisScaling": "analyzedTimeframe",
+                    "gapPolicy": "gap",
+                    "circleChartSettings": {
+                        "groupingThresholdType": "relative",
+                        "groupingThresholdValue": 0,
+                        "valueType": "relative"
+                    },
+                    "categoryOverrides": {},
+                    "curve": "linear",
+                    "pointsDisplay": "auto",
+                    "categoricalBarChartSettings": {
+                        "layout": "horizontal",
+                        "categoryAxisTickLayout": "horizontal",
+                        "scale": "absolute",
+                        "groupMode": "stacked",
+                        "colorPaletteMode": "multi-color",
+                        "categoryAxisLabel": "finalSipCodePhrase",
+                        "valueAxisLabel": "interval",
+                        "tooltipVariant": "single"
+                    },
+                    "colorPalette": "categorical",
+                    "valueRepresentation": "absolute",
+                    "truncationMode": "middle",
+                    "fieldMapping": {
+                        "timestamp": "timeframe",
+                        "leftAxisValues": [
+                            "count()"
+                        ]
+                    },
+                    "xAxisLabel": "timeframe",
+                    "xAxisIsLabelVisible": false,
+                    "hiddenLegendFields": [
+                        "interval"
+                    ],
+                    "leftYAxisSettings": {}
+                },
+                "singleValue": {
+                    "showLabel": true,
+                    "label": "error",
+                    "prefixIcon": "",
+                    "recordField": "error",
+                    "autoscale": true,
+                    "sparklineSettings": {
+                        "record": "count()"
+                    },
+                    "alignment": "center",
+                    "trend": {
+                        "trendType": "auto",
+                        "isVisible": true
+                    },
+                    "colorThresholdTarget": "value"
+                },
+                "table": {
+                    "rowDensity": "condensed",
+                    "enableSparklines": false,
+                    "hiddenColumns": [],
+                    "linewrapEnabled": false,
+                    "lineWrapIds": [],
+                    "monospacedFontEnabled": false,
+                    "monospacedFontColumns": [],
+                    "columnWidths": {},
+                    "columnTypeOverrides": [
+                        {
+                            "fields": [
+                                "count()"
+                            ],
+                            "value": "sparkline",
+                            "id": 1743097157231
+                        }
+                    ]
+                },
+                "honeycomb": {
+                    "shape": "hexagon",
+                    "legend": {
+                        "hidden": false,
+                        "position": "auto",
+                        "ratio": "auto"
+                    },
+                    "dataMappings": {
+                        "value": "operator"
+                    },
+                    "displayedFields": [
+                        "operator",
+                        "licenseCapability"
+                    ],
+                    "truncationMode": "middle",
+                    "colorMode": "color-palette",
+                    "colorPalette": "categorical"
+                },
+                "histogram": {
+                    "legend": "auto",
+                    "yAxis": {
+                        "label": "Frequency",
+                        "scale": "linear"
+                    },
+                    "colorPalette": "categorical",
+                    "dataMappings": [
+                        {
+                            "valueAxis": "interval",
+                            "rangeAxis": ""
+                        }
+                    ],
+                    "variant": "single",
+                    "truncationMode": "middle",
+                    "displayedFields": [
+                        "finalSipCodePhrase"
+                    ]
+                },
+                "valueBoundaries": {
+                    "min": "auto",
+                    "max": "auto"
+                },
+                "autoSelectVisualization": false,
+                "dataMapping": {
+                    "value": "interval"
+                },
+                "label": {
+                    "showLabel": false,
+                    "label": "interval"
+                },
+                "legend": {
+                    "showLegend": false,
+                    "position": "auto",
+                    "ratio": 38
+                }
+            },
+            "querySettings": {
+                "maxResultRecords": 1000,
+                "defaultScanLimitGbytes": 500,
+                "maxResultMegaBytes": 1,
+                "defaultSamplingRatio": 10,
+                "enableSampling": false
+            },
+            "davis": {
+                "enabled": false,
+                "davisVisualization": {
+                    "isAvailable": true
+                }
+            },
+            "timeframe": {
+                "tileTimeframeEnabled": true,
+                "tileTimeframe": {
+                    "from": "now()-7d",
+                    "to": "now()"
+                }
+            }
+        },
+        "7": {
+            "title": "Successful calls",
+            "type": "data",
+            "query": "fetch logs\n| filter dt.system.bucket==\"ms_teams\"\n| filter matchesValue(log.source,\"MSTeams_CallRecords_DirectRouting\")\n| filter in(callType, array($DirectRoutingCallType))\nAND in(trunkFullyQualifiedDomainName, array($SBC))\nAND in(callerNumber, array($callerNumber))\nAND in(calleeNumber, array($calleeNumber))\n| makeTimeseries count(), by: { successfulCall }, interval:1d",
+            "visualization": "barChart",
+            "visualizationSettings": {
+                "thresholds": [],
+                "chartSettings": {
+                    "xAxisScaling": "analyzedTimeframe",
+                    "gapPolicy": "gap",
+                    "circleChartSettings": {
+                        "groupingThresholdType": "relative",
+                        "groupingThresholdValue": 0,
+                        "valueType": "relative"
+                    },
+                    "categoryOverrides": {},
+                    "curve": "linear",
+                    "pointsDisplay": "auto",
+                    "categoricalBarChartSettings": {
+                        "layout": "horizontal",
+                        "categoryAxisTickLayout": "horizontal",
+                        "scale": "absolute",
+                        "groupMode": "stacked",
+                        "colorPaletteMode": "multi-color",
+                        "categoryAxisLabel": "successfulCall",
+                        "valueAxisLabel": "interval",
+                        "tooltipVariant": "single"
+                    },
+                    "colorPalette": "categorical",
+                    "valueRepresentation": "absolute",
+                    "truncationMode": "middle",
+                    "fieldMapping": {
+                        "timestamp": "timeframe",
+                        "leftAxisValues": [
+                            "count()"
+                        ]
+                    },
+                    "xAxisLabel": "timeframe",
+                    "xAxisIsLabelVisible": false,
+                    "hiddenLegendFields": [
+                        "interval"
+                    ],
+                    "leftYAxisSettings": {},
+                    "seriesOverrides": [
+                        {
+                            "seriesId": [
+                                "false"
+                            ],
+                            "override": {
+                                "color": {
+                                    "Default": "var(--dt-colors-charts-loglevel-emergency-default, #ae132d)"
+                                }
+                            }
+                        },
+                        {
+                            "seriesId": [
+                                "true"
+                            ],
+                            "override": {
+                                "color": {
+                                    "Default": "var(--dt-colors-charts-categorical-color-09-default, #649438)"
+                                }
+                            }
+                        }
+                    ]
+                },
+                "singleValue": {
+                    "showLabel": true,
+                    "label": "error",
+                    "prefixIcon": "",
+                    "recordField": "error",
+                    "autoscale": true,
+                    "sparklineSettings": {
+                        "record": "count()"
+                    },
+                    "alignment": "center",
+                    "trend": {
+                        "trendType": "auto",
+                        "isVisible": true
+                    },
+                    "colorThresholdTarget": "value"
+                },
+                "table": {
+                    "rowDensity": "condensed",
+                    "enableSparklines": false,
+                    "hiddenColumns": [],
+                    "linewrapEnabled": false,
+                    "lineWrapIds": [],
+                    "monospacedFontEnabled": false,
+                    "monospacedFontColumns": [],
+                    "columnWidths": {},
+                    "columnTypeOverrides": [
+                        {
+                            "fields": [
+                                "count()"
+                            ],
+                            "value": "sparkline",
+                            "id": 1743097266721
+                        }
+                    ]
+                },
+                "honeycomb": {
+                    "shape": "hexagon",
+                    "legend": {
+                        "hidden": false,
+                        "position": "auto",
+                        "ratio": "auto"
+                    },
+                    "dataMappings": {
+                        "value": "operator"
+                    },
+                    "displayedFields": [
+                        "operator",
+                        "licenseCapability"
+                    ],
+                    "truncationMode": "middle",
+                    "colorMode": "color-palette",
+                    "colorPalette": "categorical"
+                },
+                "histogram": {
+                    "legend": "auto",
+                    "yAxis": {
+                        "label": "Frequency",
+                        "scale": "linear"
+                    },
+                    "colorPalette": "categorical",
+                    "dataMappings": [
+                        {
+                            "valueAxis": "interval",
+                            "rangeAxis": ""
+                        }
+                    ],
+                    "variant": "single",
+                    "truncationMode": "middle",
+                    "displayedFields": [
+                        "successfulCall"
+                    ]
+                },
+                "valueBoundaries": {
+                    "min": "auto",
+                    "max": "auto"
+                },
+                "autoSelectVisualization": false,
+                "dataMapping": {
+                    "value": "interval"
+                },
+                "label": {
+                    "showLabel": false,
+                    "label": "interval"
+                },
+                "legend": {
+                    "showLegend": false,
+                    "position": "auto",
+                    "ratio": 45
+                }
+            },
+            "querySettings": {
+                "maxResultRecords": 1000,
+                "defaultScanLimitGbytes": 500,
+                "maxResultMegaBytes": 1,
+                "defaultSamplingRatio": 10,
+                "enableSampling": false
+            },
+            "davis": {
+                "enabled": false,
+                "davisVisualization": {
+                    "isAvailable": true
+                }
+            },
+            "timeframe": {
+                "tileTimeframeEnabled": true,
+                "tileTimeframe": {
+                    "from": "now()-7d",
+                    "to": "now()"
+                }
+            }
+        },
+        "8": {
+            "type": "markdown",
+            "content": "[API Documentation](https://learn.microsoft.com/en-us/graph/api/resources/callrecords-directroutinglogrow?view=graph-rest-1.0)"
+        },
+        "9": {
+            "type": "markdown",
+            "content": "# Filters :\n* **SBC selected :** $SBC\n* **CallType selected :** $DirectRoutingCallType\n"
+        },
+        "10": {
+            "title": "Network Effectiveness Ratio",
+            "type": "data",
+            "query": "fetch logs\n| filter dt.system.bucket==\"ms_teams\"\n| filter log.source == \"MSTeams_CallRecords_DirectRouting\"\n| filter in(callType, array($DirectRoutingCallType))\nAND in(trunkFullyQualifiedDomainName, array($SBC))\nAND in(callerNumber, array($callerNumber))\nAND in(calleeNumber, array($calleeNumber))\n| summarize NER = (100 * \n(countIf(finalSipCode == 0) // OK\n+ countIf(finalSipCode == 486) // Busy\n+ countIf(finalSipCode == 483)) // Too many hops\n/ count()),\nby:{ trunkFullyQualifiedDomainName }",
+            "visualization": "gauge",
+            "visualizationSettings": {
+                "thresholds": [],
+                "chartSettings": {
+                    "xAxisScaling": "analyzedTimeframe",
+                    "gapPolicy": "gap",
+                    "circleChartSettings": {
+                        "groupingThresholdType": "relative",
+                        "groupingThresholdValue": 0,
+                        "valueType": "relative"
+                    },
+                    "categoryOverrides": {},
+                    "curve": "linear",
+                    "pointsDisplay": "auto",
+                    "categoricalBarChartSettings": {
+                        "layout": "horizontal",
+                        "categoryAxisTickLayout": "horizontal",
+                        "scale": "absolute",
+                        "groupMode": "stacked",
+                        "colorPaletteMode": "multi-color",
+                        "categoryAxisLabel": "trunkFullyQualifiedDomainName",
+                        "valueAxisLabel": "NER",
+                        "tooltipVariant": "single"
+                    },
+                    "colorPalette": "categorical",
+                    "valueRepresentation": "absolute",
+                    "truncationMode": "middle"
+                },
+                "singleValue": {
+                    "showLabel": true,
+                    "label": "",
+                    "prefixIcon": "",
+                    "autoscale": true,
+                    "alignment": "center",
+                    "colorThresholdTarget": "value"
+                },
+                "table": {
+                    "rowDensity": "condensed",
+                    "enableSparklines": false,
+                    "hiddenColumns": [],
+                    "linewrapEnabled": false,
+                    "lineWrapIds": [],
+                    "monospacedFontEnabled": false,
+                    "monospacedFontColumns": [],
+                    "columnWidths": {},
+                    "columnTypeOverrides": []
+                },
+                "honeycomb": {
+                    "shape": "hexagon",
+                    "legend": {
+                        "hidden": false,
+                        "position": "auto",
+                        "ratio": "auto"
+                    },
+                    "dataMappings": {},
+                    "displayedFields": [],
+                    "truncationMode": "middle",
+                    "colorMode": "color-palette",
+                    "colorPalette": "categorical"
+                },
+                "histogram": {
+                    "legend": "auto",
+                    "yAxis": {
+                        "label": "Frequency",
+                        "scale": "linear"
+                    },
+                    "colorPalette": "categorical",
+                    "dataMappings": [
+                        {
+                            "valueAxis": "NER",
+                            "rangeAxis": ""
+                        }
+                    ],
+                    "variant": "single",
+                    "truncationMode": "middle",
+                    "displayedFields": [
+                        "trunkFullyQualifiedDomainName"
+                    ]
+                },
+                "valueBoundaries": {
+                    "min": "auto",
+                    "max": "auto"
+                },
+                "autoSelectVisualization": false,
+                "dataMapping": {
+                    "value": "NER"
+                },
+                "label": {
+                    "showLabel": true,
+                    "label": "NER"
+                },
+                "unitsOverrides": [
+                    {
+                        "identifier": "NER",
+                        "unitCategory": "percentage",
+                        "baseUnit": "percent",
+                        "displayUnit": null,
+                        "decimals": 0,
+                        "suffix": "",
+                        "delimiter": false,
+                        "added": 1743519557196
+                    }
+                ],
+                "colorModeType": {
+                    "color": "#438FB1",
+                    "customNumericColors": [
+                        {
+                            "id": 1336481.300000012,
+                            "value": 0,
+                            "color": {
+                                "Default": "var(--dt-colors-charts-loglevel-emergency-default, #ae132d)"
+                            },
+                            "comparator": "≥"
+                        },
+                        {
+                            "id": 1343553.1000000238,
+                            "value": 80,
+                            "color": {
+                                "Default": "var(--dt-colors-charts-loglevel-severe-default, #d56b1a)"
+                            },
+                            "comparator": "≥"
+                        },
+                        {
+                            "id": 1401903.699999988,
+                            "value": 90,
+                            "color": {
+                                "Default": "var(--dt-colors-charts-apdex-excellent-default, #2a7453)"
+                            },
+                            "comparator": "≥"
+                        }
+                    ]
+                }
+            },
+            "querySettings": {
+                "maxResultRecords": 1000,
+                "defaultScanLimitGbytes": 500,
+                "maxResultMegaBytes": 1,
+                "defaultSamplingRatio": 10,
+                "enableSampling": false
+            },
+            "davis": {
+                "enabled": false,
+                "davisVisualization": {
+                    "isAvailable": true
+                }
+            }
+        }
+    },
+    "layouts": {
+        "0": {
+            "x": 0,
+            "y": 3,
+            "w": 11,
+            "h": 5
+        },
+        "1": {
+            "x": 0,
+            "y": 14,
+            "w": 14,
+            "h": 9
+        },
+        "2": {
+            "x": 4,
+            "y": 0,
+            "w": 3,
+            "h": 3
+        },
+        "3": {
+            "x": 7,
+            "y": 0,
+            "w": 3,
+            "h": 3
+        },
+        "4": {
+            "x": 14,
+            "y": 14,
+            "w": 10,
+            "h": 9
+        },
+        "5": {
+            "x": 12,
+            "y": 8,
+            "w": 12,
+            "h": 6
+        },
+        "6": {
+            "x": 0,
+            "y": 8,
+            "w": 12,
+            "h": 6
+        },
+        "7": {
+            "x": 11,
+            "y": 3,
+            "w": 13,
+            "h": 5
+        },
+        "8": {
+            "x": 19,
+            "y": 0,
+            "w": 5,
+            "h": 3
+        },
+        "9": {
+            "x": 10,
+            "y": 0,
+            "w": 9,
+            "h": 3
+        },
+        "10": {
+            "x": 0,
+            "y": 0,
+            "w": 4,
+            "h": 3
+        }
+    },
+    "importedWithCode": false,
+    "settings": {}
+}
