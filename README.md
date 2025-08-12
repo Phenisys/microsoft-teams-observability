@@ -1,6 +1,6 @@
-# MS Teams Observability
+# Microsoft Teams Observability
 
-The MS Teams Observability Agent provides a smart collector that refines call metadata and service‑health data from Microsoft Graph API. 
+The Microsoft Teams Observability Agent provides a smart collector that refines call metadata and service‑health data from Microsoft Graph API. 
 
 It supports exporting enriched observability data to multiple backends including **Dynatrace** and **Splunk**. 
 It ships with ready‑to‑use visualizations so you can monitor Teams call quality and service status across your organization.
@@ -31,23 +31,23 @@ The collector connects to Microsoft Graph to retrieve:
 
 #### Main page
 
-![image](./src/assets/images/Dynatrace/App_%231_Tab_Home.png)
+![Dynatrace - Home](./src/assets/images/Dynatrace/App_%231_Tab_Home.png)
 
 #### Calls list
 
-![image](./src/assets/images/Dynatrace/App_%233_Choose_Call.png)
+![Dynatrace – Teams Calls list](./src/assets/images/Dynatrace/App_%233_Choose_Call.png)
 
 #### Call Details
 
-![image](./src/assets/images/Dynatrace/App_%234_Tab_CallRecordOverview.png)
+![Dynatrace – Teams Calls details](./src/assets/images/Dynatrace/App_%234_Tab_CallRecordOverview.png)
 
 #### MS Teams Published Issues
 
-![image](./src/assets/images/Dynatrace/App_%235_Tab_MicrosoftIssues.png)
+![Dynatrace – Teams Issues](./src/assets/images/Dynatrace/App_%235_Tab_MicrosoftIssues.png)
 
 #### Teams performance by locations
 
-![image](./src/assets/images/Dynatrace/App_%232_Site_Overview.png)
+![Dynatrace – Teams Sites Performance](./src/assets/images/Dynatrace/App_%232_Site_Overview.png)
 
 #### Data flow for Dynatrace
 
@@ -61,19 +61,19 @@ MS Teams metadata are sent to your Dynatrace tenant, processed by OpenPipeline, 
 
 #### Main page
 
-![image](./src/assets/images/Splunk/App_%231_Overview.png)
+![Splunk - Home](./src/assets/images/Splunk/App_%231_Overview.png)
 
 #### Site Quality
 
-![image](./src/assets/images/Splunk/App_%233_Site_Quality.png)
+![Splunk - Site Quality](./src/assets/images/Splunk/App_%233_Site_Quality.png)
 
 #### Call Details
 
-![image](./src/assets/images/Splunk/App_%232_Call_Details.png)
+![Splunk – Teams Calls Details](./src/assets/images/Splunk/App_%232_Call_Details.png)
 
 #### Global Network Performance Assessment
 
-![image](./src/assets/images/Splunk/App_%234_NPA.png)
+![Splunk - Teams Sites performance](./src/assets/images/Splunk/App_%234_NPA.png)
 
 #### Data flow for Splunk
 
