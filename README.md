@@ -102,26 +102,26 @@ For Splunk, the collector exports Microsoft Teams observability data to Splunk f
 
 ##### Home
 
-![Splunk - Home](./src/assets/images/Splunk/App_%231_Overview.png)
+<img width="3582" height="1936" alt="image" src="https://github.com/user-attachments/assets/8398bea5-1523-4d47-aa65-37eca05e768a" />
 
 ##### Site Quality
 
-![Splunk - Site Quality](./src/assets/images/Splunk/App_%233_Site_Quality.png)
+<img width="3571" height="3439" alt="image" src="https://github.com/user-attachments/assets/6b0daf53-0027-46e7-a939-ccad2ac1d4aa" />
 
 ##### Call Details
 
-![Splunk – Teams Calls Details](./src/assets/images/Splunk/App_%232_Call_Details.png)
+<img width="3600" height="1752" alt="image" src="https://github.com/user-attachments/assets/d10e8cd7-6bb8-47db-b8b3-31150c30920b" />
 
 ##### Global Network Performance Assessment
 
-![Splunk - Teams Sites performance](./src/assets/images/Splunk/App_%234_NPA.png)
+<img width="2284" height="1228" alt="image" src="https://github.com/user-attachments/assets/32d4694c-1852-4187-b4fe-fb5426a13ffb" />
 
 ##### Splunk data flow
 
 Microsoft Teams metadata are sent to Splunk and visualized through dedicated dashboards.
 
 <p align="center">
-  <img src="./src/assets/images/Splunk/Architecture-Splunk.png" width="60%">
+  <img width="2924" height="806" alt="image" src="https://github.com/user-attachments/assets/5fdbd5a0-805b-44bb-ad62-19a0126d8ed0" />
 </p>
 
 ---
