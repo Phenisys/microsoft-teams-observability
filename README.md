@@ -126,6 +126,45 @@ Microsoft Teams metadata are sent to Splunk and visualized through dedicated das
 
 ---
 
+### Grafana Labs
+
+For Grafana Labs, the collector exports Microsoft Teams observability data to Grafana Labs plugin and dashboards.
+This is a commercial plugin for sales on Grafana Labs Marketplace.
+It includes a demo mode (example data) and a 1-month trial is proposed for the collector.
+
+- **Grafana Labs Plugin**
+  https://grafana.com/grafana/plugins/phenisyslab-msteamsobservability-app/
+
+#### Grafana visualizations
+
+##### Home
+
+<p align="center">
+  <img width="1920" height="1080" alt="home" src="https://github.com/user-attachments/assets/0f6a999a-9536-4a0a-97bb-f8c83091c69f" />
+</p>
+
+##### Sites
+
+<img width="1920" height="1080" alt="sites" src="https://github.com/user-attachments/assets/72a93379-b513-466a-9f5d-03222d4ad59e" />
+
+##### Calls
+
+<img width="1920" height="1080" alt="calls" src="https://github.com/user-attachments/assets/c385e8e6-3da0-4a17-b313-ddc7a69d3265" />
+
+##### Users
+
+<img width="1920" height="1080" alt="users" src="https://github.com/user-attachments/assets/d9b8ffb3-2e0e-4a83-8ee0-945161abe4a5" />
+
+##### Call Overview
+
+<img width="1920" height="1080" alt="call-overview" src="https://github.com/user-attachments/assets/070d4ed8-8c29-46f9-9757-92174c00a249" />
+
+##### Issues
+
+<img width="1920" height="1080" alt="issues" src="https://github.com/user-attachments/assets/7efb5b4a-e90f-48dd-8fb7-a859540fe8c8" />
+
+---
+
 ## Looking for the Dynatrace solution?
 
 Many users arrive on this repository while looking for the Dynatrace components.
