@@ -12,7 +12,7 @@
 
 It connects to Microsoft Graph, collects and enriches Microsoft Teams observability data, and exports it to supported backends such as **Dynatrace**, **Grafana Cloud/Loki** and **Splunk Enterprise**.
 
-This repository is the **core collector project** of the solution.
+This repository is the **core collector project** (or "Agent") of the solution.
 
 <img width="2246" height="1066" alt="Backends" src="https://github.com/user-attachments/assets/cb03f96e-5f2b-4400-bb23-95d5bab58bbb" />
 
@@ -98,7 +98,7 @@ This is a commercial plugin for sales on Grafana Labs Marketplace.
 It includes a demo mode (example data) and a 1-month trial is proposed for the collector.
 
 - **Grafana Labs Plugin**
-  https://grafana.com/grafana/plugins/phenisyslab-msteamsobservability-app/
+  https://grafana.com/grafana/plugins/phenisys-msteamsobservability-app/
 
 #### Grafana visualizations
 
