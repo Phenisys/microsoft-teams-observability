@@ -81,17 +81,11 @@ The solution includes:
 
 <img width="3456" height="1842" alt="image" src="https://github.com/user-attachments/assets/732e7371-18bc-40b7-b176-a603be77caba" />
 
+<img width="1800" height="1130" alt="image" src="https://github.com/user-attachments/assets/e6f1f3a3-d8a2-48cb-b10b-5c491861d79c" />
+
 ##### Issues
 
 <img width="1800" height="1130" alt="image" src="https://github.com/user-attachments/assets/c8a034e7-55e6-41b5-8a1d-cbac453c99fb" />
-
-##### Dynatrace data flow
-
-Microsoft Teams metadata are sent to Dynatrace, processed for analysis and storage, and then visualized through the dedicated Dynatrace application and dashboards.
-
-<p align="center">
-  <img src="./src/assets/images/Dynatrace/Architecture-DT.png" width="60%">
-</p>
 
 ---
 
@@ -108,17 +102,15 @@ It includes a demo mode (example data) and a 1-month trial is proposed for the c
 
 ##### Home
 
-<p align="center">
-  <img width="1920" height="1080" alt="home" src="https://github.com/user-attachments/assets/0f6a999a-9536-4a0a-97bb-f8c83091c69f" />
-</p>
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/875d7c4c-72d7-43ac-af01-feec09b7fd08" />
 
 ##### Sites
 
-<img width="1920" height="1080" alt="sites" src="https://github.com/user-attachments/assets/72a93379-b513-466a-9f5d-03222d4ad59e" />
+<img width="1920" height="3312" alt="image" src="https://github.com/user-attachments/assets/0542c67f-d510-49df-a0fa-e724ecff9ada" />
 
 ##### Calls
 
-<img width="1920" height="1080" alt="calls" src="https://github.com/user-attachments/assets/c385e8e6-3da0-4a17-b313-ddc7a69d3265" />
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/b23491c4-1e2b-40ae-801e-05da58f84461" />
 
 ##### Users
 
@@ -126,7 +118,7 @@ It includes a demo mode (example data) and a 1-month trial is proposed for the c
 
 ##### Call Overview
 
-<img width="1920" height="1080" alt="call-overview" src="https://github.com/user-attachments/assets/070d4ed8-8c29-46f9-9757-92174c00a249" />
+<img width="1920" height="3703" alt="image" src="https://github.com/user-attachments/assets/83656fe1-bd41-4444-ad9f-a9fb6ce20f7b" />
 
 ##### Issues
 
