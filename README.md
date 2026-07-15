@@ -4,6 +4,7 @@
 [![Dynatrace Hub](https://img.shields.io/badge/Dynatrace-Hub-00b140)](https://www.dynatrace.com/hub/detail/microsoft-teams-observability/)
 [![Grafana App](https://img.shields.io/badge/Grafana-App-FF6A00?logo=grafana)](https://grafana.com/grafana/plugins/phenisyslab-msteamsobservability-app/)
 [![Splunk App](https://img.shields.io/badge/Splunk-App-black?logo=splunk)](https://splunkbase.splunk.com/app/7850)
+[![Get your license](https://img.shields.io/badge/Get_your_license-Here-blue)](https://phenisys.notion.site/17b56c8e31f7806b8cd4e0debfe539fb)
 
 # Microsoft Teams Observability
 
