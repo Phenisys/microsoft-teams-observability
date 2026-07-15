@@ -2,14 +2,14 @@
 [![Dynatrace App](https://img.shields.io/badge/Dynatrace-App-1e8c8f)](https://github.com/Phenisys/microsoft-teams-observability-dynatrace-app)
 [![Dynatrace Extension](https://img.shields.io/badge/Dynatrace-EF2_Extension-0a6cff)](https://github.com/Phenisys/microsoft-teams-observability-dynatrace-extension)
 [![Dynatrace Hub](https://img.shields.io/badge/Dynatrace-Hub-00b140)](https://www.dynatrace.com/hub/detail/microsoft-teams-observability/)
-[![Splunk App](https://img.shields.io/badge/Splunk-App-black?logo=splunk)](https://splunkbase.splunk.com/app/7850)
 [![Grafana App](https://img.shields.io/badge/Grafana-App-FF6A00?logo=grafana)](https://grafana.com/grafana/plugins/phenisyslab-msteamsobservability-app/)
+[![Splunk App](https://img.shields.io/badge/Splunk-App-black?logo=splunk)](https://splunkbase.splunk.com/app/7850)
 
 # Microsoft Teams Observability
 
 **Microsoft Teams Observability** provides a collector for Microsoft Teams telemetry and service health data.
 
-It connects to Microsoft Graph, collects and enriches Microsoft Teams observability data, and exports it to supported backends such as **Dynatrace** and **Splunk**.
+It connects to Microsoft Graph, collects and enriches Microsoft Teams observability data, and exports it to supported backends such as **Dynatrace**, **Grafana Cloud/Loki** and **Splunk Enterprise**.
 
 This repository is the **core collector project** of the solution.
 
@@ -47,17 +47,16 @@ The collector can export Microsoft Teams observability data to multiple supporte
 ### Dynatrace
 
 For Dynatrace, the collector sends Microsoft Teams observability data to Dynatrace, where it can be processed and visualized through the dedicated application and dashboards.
-
-Related components:
-
-- **Dynatrace Application**  
-  https://github.com/Phenisys/microsoft-teams-observability-dynatrace-app
-
-- **Dynatrace Extension**  
-  https://github.com/Phenisys/microsoft-teams-observability-dynatrace-extension
-
-- **Dynatrace Hub**  
+See **Dynatrace Hub** for more details :
   https://www.dynatrace.com/hub/detail/microsoft-teams-observability/
+
+The solution includes:
+
+- the **collector** — this repository
+- the **Dynatrace Application** — ready-to-use dashboards and investigation views  
+  https://github.com/Phenisys/microsoft-teams-observability-dynatrace-app
+- the **Dynatrace Extension** — EF2 packaging and deployment for Dynatrace  
+  https://github.com/Phenisys/microsoft-teams-observability-dynatrace-extension
 
 #### Dynatrace visualizations
 
@@ -91,38 +90,6 @@ Microsoft Teams metadata are sent to Dynatrace, processed for analysis and stora
 
 <p align="center">
   <img src="./src/assets/images/Dynatrace/Architecture-DT.png" width="60%">
-</p>
-
----
-
-### Splunk
-
-For Splunk, the collector exports Microsoft Teams observability data to Splunk for dashboarding and analytics.
-
-#### Splunk visualizations
-
-##### Home
-
-<img width="3582" height="1936" alt="image" src="https://github.com/user-attachments/assets/8398bea5-1523-4d47-aa65-37eca05e768a" />
-
-##### Site Quality
-
-<img width="3571" height="3439" alt="image" src="https://github.com/user-attachments/assets/6b0daf53-0027-46e7-a939-ccad2ac1d4aa" />
-
-##### Call Details
-
-<img width="3600" height="1752" alt="image" src="https://github.com/user-attachments/assets/d10e8cd7-6bb8-47db-b8b3-31150c30920b" />
-
-##### Global Network Performance Assessment
-
-<img width="2284" height="1228" alt="image" src="https://github.com/user-attachments/assets/32d4694c-1852-4187-b4fe-fb5426a13ffb" />
-
-##### Splunk data flow
-
-Microsoft Teams metadata are sent to Splunk and visualized through dedicated dashboards.
-
-<p align="center">
-  <img width="2924" height="806" alt="image" src="https://github.com/user-attachments/assets/5fdbd5a0-805b-44bb-ad62-19a0126d8ed0" />
 </p>
 
 ---
@@ -166,17 +133,35 @@ It includes a demo mode (example data) and a 1-month trial is proposed for the c
 
 ---
 
-## Looking for the Dynatrace solution?
+### Splunk
 
-Many users arrive on this repository while looking for the Dynatrace components.
+For Splunk, the collector exports Microsoft Teams observability data to Splunk for dashboarding and analytics.
 
-For Dynatrace, the solution includes:
+#### Splunk visualizations
 
-- the **collector** — this repository
-- the **Dynatrace Application** — ready-to-use dashboards and investigation views  
-  https://github.com/Phenisys/microsoft-teams-observability-dynatrace-app
-- the **Dynatrace Extension** — EF2 packaging and deployment for Dynatrace  
-  https://github.com/Phenisys/microsoft-teams-observability-dynatrace-extension
+##### Home
+
+<img width="3582" height="1936" alt="image" src="https://github.com/user-attachments/assets/8398bea5-1523-4d47-aa65-37eca05e768a" />
+
+##### Site Quality
+
+<img width="3571" height="3439" alt="image" src="https://github.com/user-attachments/assets/6b0daf53-0027-46e7-a939-ccad2ac1d4aa" />
+
+##### Call Details
+
+<img width="3600" height="1752" alt="image" src="https://github.com/user-attachments/assets/d10e8cd7-6bb8-47db-b8b3-31150c30920b" />
+
+##### Global Network Performance Assessment
+
+<img width="2284" height="1228" alt="image" src="https://github.com/user-attachments/assets/32d4694c-1852-4187-b4fe-fb5426a13ffb" />
+
+##### Splunk data flow
+
+Microsoft Teams metadata are sent to Splunk and visualized through dedicated dashboards.
+
+<p align="center">
+  <img width="2924" height="806" alt="image" src="https://github.com/user-attachments/assets/5fdbd5a0-805b-44bb-ad62-19a0126d8ed0" />
+</p>
 
 ---
 
@@ -190,3 +175,8 @@ For Dynatrace, the solution includes:
 
 - **I want the Dynatrace EF2 extension package**  
   → https://github.com/Phenisys/microsoft-teams-observability-dynatrace-extension
+
+---
+## How do I get a Trial License ?
+
+- **[Please get in touch with this request form](https://phenisys.notion.site/17b56c8e31f7806b8cd4e0debfe539fb)**
