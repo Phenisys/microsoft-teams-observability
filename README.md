@@ -14,13 +14,15 @@ It connects to Microsoft Graph, collects and enriches Microsoft Teams observabil
 
 This repository is the **core collector project** of the solution.
 
+<img width="2246" height="1066" alt="Backends" src="https://github.com/user-attachments/assets/cb03f96e-5f2b-4400-bb23-95d5bab58bbb" />
+
 ---
 
 ## What the collector does
 
 The collector retrieves and processes Microsoft Teams observability data including:
 
-- Call Records
+- Call Records with all Streams details
 - PSTN Call Records
 - Direct Routing Records
 - Call Queue Records
