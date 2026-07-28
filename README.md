@@ -89,6 +89,11 @@ The solution includes:
 
 <img width="1800" height="1130" alt="image" src="https://github.com/user-attachments/assets/c8a034e7-55e6-41b5-8a1d-cbac453c99fb" />
 
+#### Dashboards
+
+<img width="1873" height="1414" alt="image" src="https://github.com/user-attachments/assets/fb874a80-22f3-450d-9ae4-9299766c3db8" />
+
+
 ---
 
 ### Grafana Labs
