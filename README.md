@@ -10,7 +10,7 @@
 
 **Microsoft Teams Observability** provides a collector for Microsoft Teams telemetry and service health data.
 
-It connects to Microsoft Graph, collects and enriches Microsoft Teams observability data, and exports it to supported backends such as **Dynatrace**, **Grafana Cloud/Loki** and **Splunk Enterprise**.
+It connects to Microsoft Graph, collects and enriches Microsoft Teams observability data, and exports it to supported backends such as **Dynatrace**, **Grafana Cloud/Loki**, **Splunk Enterprise**, and any **OpenTelemetry (OTLP)**-compatible backend.
 
 This repository is the **core collector project** (or "Agent") of the solution.
 
@@ -28,6 +28,8 @@ The collector retrieves and processes Microsoft Teams observability data includi
 - Call Queue Records
 - Auto Attendant Records
 - Microsoft Teams service health and announcements
+
+The collector is built for scale: it processes call data asynchronously with concurrent workers and configurable rate limiting against the Microsoft Graph API, so it can keep up with large tenants without overwhelming API quotas.
 
 It is designed to help teams monitor collaboration experience, investigate call quality issues, and feed backend-specific dashboards and troubleshooting workflows.
 
