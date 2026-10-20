@@ -2,7 +2,7 @@
 [![Dynatrace App](https://img.shields.io/badge/Dynatrace-App-1e8c8f)](https://github.com/Phenisys/microsoft-teams-observability-dynatrace-app)
 [![Dynatrace Extension](https://img.shields.io/badge/Dynatrace-EF2_Extension-0a6cff)](https://github.com/Phenisys/microsoft-teams-observability-dynatrace-extension)
 [![Dynatrace Hub](https://img.shields.io/badge/Dynatrace-Hub-00b140)](https://www.dynatrace.com/hub/detail/microsoft-teams-observability/)
-[![Grafana App](https://img.shields.io/badge/Grafana-App-FF6A00?logo=grafana)](https://grafana.com/grafana/plugins/phenisyslab-msteamsobservability-app/)
+[![Grafana App](https://img.shields.io/badge/Grafana-App-FF6A00?logo=grafana)](https://grafana.com/grafana/plugins/phenisys-msteamsobservability-app/)
 [![Splunk App](https://img.shields.io/badge/Splunk-App-black?logo=splunk)](https://splunkbase.splunk.com/app/7850)
 [![Get your license](https://img.shields.io/badge/Get_your_license-Here-blue)](https://phenisys.notion.site/17b56c8e31f7806b8cd4e0debfe539fb)
 
